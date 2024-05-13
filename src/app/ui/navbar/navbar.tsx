@@ -1,10 +1,10 @@
-"use client";
-
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import ThemeToggleButton from "../ThemeToggleButton/ThemeToggleButton";
+import Link from 'next/link';
+import { color } from "@mui/system";
 
 const drawerWidth = 240;
 
@@ -12,9 +12,22 @@ export type HeaderProps = {
   ColorModeContext: React.Context<{ toggleColorMode: () => void; }>,
 }
 
+const navLinks = [
+  { name: "Register", href:"/signup" },
+  { name: "Login", href:"/login" },
+  { name: "Profile", href:"/profile" },
+];
+
 const Navbar = (props: HeaderProps) => {
   const {ColorModeContext} = props;
   const pathname = usePathname();
+  const router = useRouter()
+
+  const handleClick =()=>{
+    // router.push('/');
+    // router.replace("/");
+    router.back();
+  }
 
   return (
     <AppBar
@@ -23,7 +36,17 @@ const Navbar = (props: HeaderProps) => {
       >
         <Toolbar>
           <ThemeToggleButton ColorModeContext={ColorModeContext}/>
-          <Typography variant="h6" noWrap component="div">
+          {navLinks.map((link)=>{
+            const isActive = pathname.startsWith(link.href);
+            const mystyle = {
+              color: isActive ? "red" : "",
+            };
+
+            return(
+              <Link href={link.href} key={link.name} style={mystyle}>{link.name}</Link>
+            )
+          })}
+          <Typography variant="h6" noWrap component="div" onClick={handleClick}>
             Permanent drawer
           </Typography>
         </Toolbar>

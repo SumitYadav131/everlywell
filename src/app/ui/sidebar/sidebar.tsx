@@ -14,7 +14,7 @@ import Link from "next/link";
 const drawerWidth = 240;
 
 const Sidebar = () => {
-  return (    
+  return (
     <>
       <Drawer
         sx={{
