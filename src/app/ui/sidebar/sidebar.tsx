@@ -31,14 +31,14 @@ const Sidebar = () => {
         <Toolbar />
         <Divider />
 
-        {/* <List>
-          <ListItem> */}
+        <List>
+          <ListItem>
             <Link href="/pages/profile">
               <PersonOutlineIcon/>
               Profile
             </Link>
-          {/* </ListItem>
-        </List> */}
+          </ListItem>
+        </List>
 
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -47,7 +47,7 @@ const Sidebar = () => {
                 <ListItemIcon>
                   {index % 2 === 0 ? <MdPeople /> : <MdAttachMoney />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={text}/>
               </ListItemButton>
             </ListItem>
           ))}
