@@ -17,7 +17,7 @@ const axios = Axios.create({
     baseURL: process.env.BACKEND_URL,
     headers:{
         'X-Requested-With':'XMLHttpRequest',
-        // 'Content-Type':"application/json",
+        'Content-Type':"application/json",
     },
     withCredentials:true
 })

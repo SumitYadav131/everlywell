@@ -1,37 +1,35 @@
-import axios from '@/app/_lib/axios';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-// import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import { loginUser } from '../../actions/auth/authAction';
 
 export interface AuthUserState {
-  authUser:string[];
+  authUser:Object;
 }
 
 const initialState: AuthUserState = {
-  authUser: [],
+  authUser: {},
 }
-
-export const signupUser = createAsyncThunk('signupUser',async(data:any)=>{
-  const result = axios.post('api/auth/login', data);
-  return result;
-})
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    loginUser:(state, action)=>{
-      state.authUser.push(action.payload);
-    }
-  },
+  reducers: {},
   extraReducers:(builder)=>{
-    builder.addCase(signupUser.fulfilled,(state, action)=>{
-      console.log(action);
-      // state.authUser=action.payload;
+    builder
+    .addCase(loginUser.pending, (state, action)=>{})
+    .addCase(loginUser.fulfilled,(state, {payload})=>{
+      const userData = payload.data;
+      console.log(userData);
+      
+      let data = {
+        name: userData.data.user.name,
+        token:userData.token
+      }
+      state.authUser = data;
+    })
+    .addCase(loginUser.rejected,(state)=>{
+      // 
     })
   }
 })
-
-// Action creators are generated for each case reducer function
-export const {loginUser} = authSlice.actions;
 
 export default authSlice.reducer;
