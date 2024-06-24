@@ -18,7 +18,7 @@ export const authSlice = createSlice({
     .addCase(loginUser.pending, (state, action)=>{})
     .addCase(loginUser.fulfilled,(state, {payload})=>{
       const userData = payload.data;
-      console.log(userData);
+      // console.log(userData);
       
       let data = {
         name: userData.data.user.name,
