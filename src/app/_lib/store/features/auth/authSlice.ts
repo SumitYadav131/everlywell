@@ -11,9 +11,8 @@ const initialState: AuthUserState = {
 }
 
 export const signupUser = createAsyncThunk('signupUser',async(data:any)=>{
-  console.log(data)
-  // const result = axios.post('api/auth/login', data);
-  // return result;
+  const result = axios.post('api/auth/login', data);
+  return result;
 })
 
 export const authSlice = createSlice({
@@ -26,7 +25,7 @@ export const authSlice = createSlice({
   },
   extraReducers:(builder)=>{
     builder.addCase(signupUser.fulfilled,(state, action)=>{
-      console.log('reducer');
+      console.log(action);
       // state.authUser=action.payload;
     })
   }

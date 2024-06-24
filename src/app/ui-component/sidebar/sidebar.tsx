@@ -73,24 +73,11 @@ export default function Sidebar() {
         </IconButton>
       </DrawerHeader>
       <Divider />
-      {/* <List>
-        {['Dashboard', 'About', 'Products', 'Contact Us', 'Posts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
       <List>
         {navLinks.map((link, index)=>{
           const isActive = pathname.startsWith(link.href);
           return(
             <Link href={link.href} style={{textDecoration: 'none', color: 'inherit'}}>
-              {/* <a > */}
               <ListItem key={index} disablePadding>
                 <ListItemButton selected={isActive}>
                   <ListItemIcon>
@@ -99,7 +86,6 @@ export default function Sidebar() {
                     <ListItemText primary={link.name} />
                 </ListItemButton>
               </ListItem>
-              {/* </a> */}
             </Link>
           )
         })}
