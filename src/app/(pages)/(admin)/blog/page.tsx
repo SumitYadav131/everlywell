@@ -1,14 +1,17 @@
-import { Metadata } from 'next'
+'use client'
+// import { Metadata } from 'next'
 import React from 'react'
 
-export const metadata:Metadata={
-  title:{
-    absolute:"Blog Posts",
-  },
-}
+// export const metadata: Metadata = {
+//   title: {
+//     absolute: "Blog Posts",
+//   },
+// }
 
 export default function posts() {
   return (
-    <div>posts</div>
+    <div>
+      <h1>Post page</h1>
+    </div>
   )
 }

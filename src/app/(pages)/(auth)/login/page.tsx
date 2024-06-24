@@ -39,7 +39,7 @@ export default function LoginPage() {
       email: data.get('email'),
       password: data.get('password'),
     };
-    dispatch(signupUser())
+    dispatch(signupUser(userDetails))
   };
 
   return (

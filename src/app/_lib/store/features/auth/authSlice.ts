@@ -10,15 +10,8 @@ const initialState: AuthUserState = {
   authUser: [],
 }
 
-export const signupUser = createAsyncThunk('signupUser',async(data)=>{
-  // const res = await fetch("",{
-  //   method:"post",
-  //   headers:{
-  //     'Content-Type':"application/json",
-  //   }
-  // })
+export const signupUser = createAsyncThunk('signupUser',async(data:any)=>{
   console.log(data)
-  
   // const result = axios.post('api/auth/login', data);
   // return result;
 })
@@ -34,7 +27,6 @@ export const authSlice = createSlice({
   extraReducers:(builder)=>{
     builder.addCase(signupUser.fulfilled,(state, action)=>{
       console.log('reducer');
-      
       // state.authUser=action.payload;
     })
   }

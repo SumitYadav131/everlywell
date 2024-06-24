@@ -16,7 +16,8 @@ Axios.interceptors.request.use(
 const axios = Axios.create({
     baseURL: process.env.BACKEND_URL,
     headers:{
-        'X-Requested-With':'XMLHttpRequest'
+        'X-Requested-With':'XMLHttpRequest',
+        // 'Content-Type':"application/json",
     },
     withCredentials:true
 })
