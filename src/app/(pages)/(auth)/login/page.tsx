@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React from 'react'
+import React, { useEffect } from 'react'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,8 +13,10 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useAppDispatch } from "@/app/_lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/_lib/store/hooks";
 import { loginUser } from "@/app/_lib/store/actions/auth/authAction";
+import { redirect } from 'next/navigation'
+
 
 function Copyright(props: any) {
   return (
@@ -30,7 +32,8 @@ function Copyright(props: any) {
 }
 
 export default function LoginPage() {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+  const authUser = useAppSelector((state)=>state.auth.authUser);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -41,6 +44,13 @@ export default function LoginPage() {
     };
     dispatch(loginUser(userDetails));
   };
+
+  useEffect(() => {
+    if (authUser.token) {
+      redirect(`/admin/dashboard`);
+    }
+  }, [authUser])
+  
 
   return (
     <Container component="main" maxWidth="xs">

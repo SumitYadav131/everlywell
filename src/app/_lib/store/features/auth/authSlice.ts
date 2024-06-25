@@ -2,11 +2,27 @@ import { createSlice } from '@reduxjs/toolkit'
 import { loginUser } from '../../actions/auth/authAction';
 
 export interface AuthUserState {
-  authUser:Object;
+  authUser:{
+    id:string,
+    name:string,
+    email:string,
+    role:string,
+    passwordChangedAt:string,
+    status:string,
+    token:string,
+  };
 }
 
 const initialState: AuthUserState = {
-  authUser: {},
+  authUser: {
+    id: "",
+    name: "",
+    email: "",
+    role: "",
+    passwordChangedAt: "",
+    status: "",
+    token: "",
+  },
 }
 
 export const authSlice = createSlice({
@@ -18,11 +34,14 @@ export const authSlice = createSlice({
     .addCase(loginUser.pending, (state, action)=>{})
     .addCase(loginUser.fulfilled,(state, {payload})=>{
       const userData = payload.data;
-      // console.log(userData);
-      
       let data = {
+        id: userData.data.user._id,
         name: userData.data.user.name,
-        token:userData.token
+        email: userData.data.user.email,
+        role: userData.data.user.role,
+        passwordChangedAt: userData.data.user.passwordChangedAt,
+        status: userData.status,
+        token: userData.token,
       }
       state.authUser = data;
     })

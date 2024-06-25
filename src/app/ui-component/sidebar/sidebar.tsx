@@ -13,7 +13,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+// import MailIcon from '@mui/icons-material/Mail';
 import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
 import { setOpen } from '@/app/_lib/store/features/drawer/drawerSlice';
 import { usePathname } from "next/navigation";
@@ -32,14 +32,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const navLinks = [
-  { name: "Dashboard", href:"/dashboard" },
+  { name: "Dashboard", href:"/admin/dashboard" },
   // { name: "About", href:"/" },
   // { name: "Products", href:"/" },
   // { name: "Contact Us", href:"/" },
-  { name: "Posts", href:"/blog" },
+  { name: "Posts", href:"/admin/blog" },
   { name: "Register", href:"/signup" },
   { name: "Login", href:"/login" },
-  { name: "Profile", href:"/profile" },
+  { name: "Profile", href:"/admin/profile" },
 ];
 
 export default function Sidebar() {
@@ -77,8 +77,8 @@ export default function Sidebar() {
         {navLinks.map((link, index)=>{
           const isActive = pathname.startsWith(link.href);
           return(
-            <Link href={link.href} style={{textDecoration: 'none', color: 'inherit'}}>
-              <ListItem key={index} disablePadding>
+            <Link key={index} href={link.href} style={{textDecoration: 'none', color: 'inherit'}}>
+              <ListItem disablePadding>
                 <ListItemButton selected={isActive}>
                   <ListItemIcon>
                     <InboxIcon />
@@ -91,7 +91,7 @@ export default function Sidebar() {
         })}
       </List>
       <Divider />
-      <List>
+      {/* <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
@@ -102,7 +102,7 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </Drawer>
   );
 }
