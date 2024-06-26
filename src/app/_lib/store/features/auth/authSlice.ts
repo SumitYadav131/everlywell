@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loginUser } from '../../actions/auth/authAction';
+import { loginUserAction } from '../../thunks/auth/authAction';
 
 export interface AuthUserState {
   authUser:{
@@ -31,8 +31,8 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers:(builder)=>{
     builder
-    .addCase(loginUser.pending, (state, action)=>{})
-    .addCase(loginUser.fulfilled,(state, {payload})=>{
+    .addCase(loginUserAction.pending, (state, action)=>{})
+    .addCase(loginUserAction.fulfilled,(state, {payload})=>{
       const userData = payload.data;
       let data = {
         id: userData.data.user._id,
@@ -45,7 +45,7 @@ export const authSlice = createSlice({
       }
       state.authUser = data;
     })
-    .addCase(loginUser.rejected,(state)=>{
+    .addCase(loginUserAction.rejected,(state)=>{
       // 
     })
   }

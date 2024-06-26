@@ -14,7 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useAppDispatch, useAppSelector } from "@/app/_lib/store/hooks";
-import { loginUser } from "@/app/_lib/store/actions/auth/authAction";
+import { loginUserAction } from "@/app/_lib/store/thunks/auth/authAction";
 import { redirect } from 'next/navigation'
 
 
@@ -42,7 +42,7 @@ export default function LoginPage() {
       email: data.get('email'),
       password: data.get('password'),
     };
-    dispatch(loginUser(userDetails));
+    dispatch(loginUserAction(userDetails));
   };
 
   useEffect(() => {

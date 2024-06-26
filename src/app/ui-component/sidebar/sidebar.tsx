@@ -18,6 +18,8 @@ import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
 import { setOpen } from '@/app/_lib/store/features/drawer/drawerSlice';
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
+import { navLinks } from '@/app/_routes/navLinks';
+
 
 
 const drawerWidth = 240;
@@ -30,17 +32,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
-
-const navLinks = [
-  { name: "Dashboard", href:"/admin/dashboard" },
-  // { name: "About", href:"/" },
-  // { name: "Products", href:"/" },
-  // { name: "Contact Us", href:"/" },
-  { name: "Posts", href:"/admin/blog" },
-  { name: "Register", href:"/signup" },
-  { name: "Login", href:"/login" },
-  { name: "Profile", href:"/admin/profile" },
-];
 
 export default function Sidebar() {
   const theme = useTheme();
@@ -91,18 +82,6 @@ export default function Sidebar() {
         })}
       </List>
       <Divider />
-      {/* <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <MailIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
     </Drawer>
   );
 }

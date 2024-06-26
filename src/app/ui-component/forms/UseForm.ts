@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react'
 
 export function UseForm(initial_form_values: any, validateOnChange = false, validate: any, resetImage:any = '') {

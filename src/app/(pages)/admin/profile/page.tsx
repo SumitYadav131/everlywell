@@ -13,9 +13,11 @@ import { TabContext, TabPanel } from '@mui/lab';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import BusinessTwoToneIcon from '@mui/icons-material/BusinessTwoTone';
 import HttpsTwoToneIcon from '@mui/icons-material/HttpsTwoTone';
+import { CustomComponents } from '@/app/ui-component';
 
 export default function Profile() {
   const [value, setValue] = useState("1");
+  const Breadcrumb = CustomComponents.Breadcrumb;
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -24,35 +26,7 @@ export default function Profile() {
   return (
     <>
       <Box>
-        <Box sx={{paddingBottom: 3}}>
-          <Card sx={{p: 2, boxShadow: 0, borderRadius: '9px'}}>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
-              <div>Profile</div>
-              <Breadcrumbs aria-label="breadcrumb" separator="›">
-                <Link
-                  underline="hover"
-                  sx={{ display: 'flex', alignItems: 'center' }}
-                  color="inherit"
-                  href="/"
-                >
-                  <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                </Link>
-                <Typography
-                  sx={{ display: 'flex', alignItems: 'center' }}
-                  color="text.primary"
-                >
-                  Account Profile
-                </Typography>
-              </Breadcrumbs>
-            </Box>
-          </Card>
-        </Box>
-
+        <Breadcrumb/>
         <Card sx={{p: 2, boxShadow: 0, borderRadius: '9px'}}>
           <TabContext value={value}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
