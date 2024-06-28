@@ -9,7 +9,7 @@ export default function CustomButton(props: any) {
         variant={variant || "contained"}
         size={size || "medium"}
         color={color || "primary"}
-        sx={{ borderRadius: '16px',backgroundColor: 'black' }}
+        sx={{ borderRadius: '16px' }}
         {...other}
       >
         {text}

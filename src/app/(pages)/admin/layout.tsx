@@ -4,8 +4,10 @@ import { Box, CssBaseline, ThemeProvider, createTheme, styled } from "@mui/mater
 import { createContext, useMemo, useState } from "react";
 import darkTheme from "@/app/theme/darkTheme";
 import lightTheme from "@/app/theme/lightTheme";
-import { CustomComponents } from "@/app/ui-component";
 import { useAppSelector } from "@/app/_lib/store/hooks";
+import AdminNavBar from "@/app/_layout/navbar/adminNavBar";
+import Sidebar from "@/app/_layout/sidebar/sidebar";
+import Footer from "@/app/_layout/footer/footer";
 
 const drawerWidth = 240;
 
@@ -40,10 +42,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
 }));
 
 const Layout = ({children}:any)=>{
-  const AdminNavBar = CustomComponents.AdminNavBar;
-  const Sidebar = CustomComponents.Sidebar;
-  const Footer = CustomComponents.Footer;
-
   const [mode, setMode] = useState<'light' | 'dark'>('light');
 
   const colorMode = useMemo(

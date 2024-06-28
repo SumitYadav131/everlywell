@@ -22,11 +22,9 @@ export default function CustomFormDialog(props: any) {
                     sx={{
                         display: 'flex',
                         flexDirection: 'row',
-                        bgcolor: 'background.paper',
                         justifyContent: 'space-between',
                     }}>
                     <Typography variant='h5' sx={{ fontWeight: 'bold' }}>{formDialogData.dialogTitle}</Typography>
-
                     <CustomIconButton
                         aria-label="close"
                         onClick={
@@ -49,17 +47,3 @@ export default function CustomFormDialog(props: any) {
         </Dialog>
     )
 }
-
-// const mapStateToProps = (state) => {
-//     return {
-//         isOpenDialog: state.DialogReducer.isOpenCustomFormDialog,
-//         dialogTitle: state.DialogReducer.dialogTitle
-//     }
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return bindActionCreators({
-//         ToggleCustomFormDialogAction,
-//     }, dispatch);
-// }
-// export default connect(mapStateToProps, mapDispatchToProps)(CustomFormDialog);

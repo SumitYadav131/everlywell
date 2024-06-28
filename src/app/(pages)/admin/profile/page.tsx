@@ -2,9 +2,6 @@
 
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
-import HomeIcon from '@mui/icons-material/Home';
 import Box from '@mui/material/Box';
 import { Avatar, Button, Card, Divider, Grid, TextField } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
@@ -26,7 +23,7 @@ export default function Profile() {
   return (
     <>
       <Box>
-        <Breadcrumb/>
+        <Breadcrumb pageName="Profile"/>
         <Card sx={{p: 2, boxShadow: 0, borderRadius: '9px'}}>
           <TabContext value={value}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>

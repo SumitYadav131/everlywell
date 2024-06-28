@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 export function UseForm(initial_form_values: any, validateOnChange = false, validate: any, resetImage:any = '') {
     const [values, setValues] = useState(initial_form_values);
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState(initial_form_values);
 
     const handleInput = (e:any) => {
         // e.persist();

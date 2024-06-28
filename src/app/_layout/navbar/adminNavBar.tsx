@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
 import { setOpen } from '@/app/_lib/store/features/drawer/drawerSlice';
-import ThemeToggleButton from '../../ThemeToggleButton/ThemeToggleButton';
+import ThemeToggleButton from '../../ui-component/ThemeToggleButton/ThemeToggleButton';
 
 const drawerWidth = 240;
 

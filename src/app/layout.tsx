@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import StoreProvider from "./StoreProvider";
-import { CustomComponents } from "./ui-component";
 
 export const metadata :Metadata = {
   title: {
@@ -15,12 +14,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const UserNavbar = CustomComponents.UserNavbar;
   return (
     <html lang="en">
       <body>
         <StoreProvider>
-          <UserNavbar/>
           {children}
         </StoreProvider>
       </body>

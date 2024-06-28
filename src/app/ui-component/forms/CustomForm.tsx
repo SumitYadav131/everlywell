@@ -3,7 +3,7 @@ export default function CustomForm(props:any) {
 
     return (
         <form {...other}>
-            {props.children}
+            {children}
         </form>
     )
 }

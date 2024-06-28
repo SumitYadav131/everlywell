@@ -1,10 +1,14 @@
 import React from 'react';
-import { Breadcrumbs, Card, Container, Link, Typography } from '@mui/material'
+import { Breadcrumbs, Card, Link, Typography } from '@mui/material'
 import { Box } from '@mui/system';
 import HomeIcon from '@mui/icons-material/Home';
 
-export default function Breadcrumb(props:any) {
-    const { pageName } = props;    
+type Props ={
+    pageName: string
+};
+
+export default function Breadcrumb(props: Props) {
+    const { pageName='' } = props;
 
     return (
         <>
@@ -16,23 +20,23 @@ export default function Breadcrumb(props:any) {
                         justifyContent: 'space-between',
                     }}
                     >
-                    <div>{pageName}</div>
-                    <Breadcrumbs aria-label="breadcrumb" separator="›">
-                        <Link
-                        underline="hover"
-                        sx={{ display: 'flex', alignItems: 'center' }}
-                        color="inherit"
-                        href="/admin/dashboard"
-                        >
-                            <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                        </Link>
-                        <Typography
-                        sx={{ display: 'flex', alignItems: 'center' }}
-                        color="text.primary"
-                        >
-                            {pageName}
-                        </Typography>
-                    </Breadcrumbs>
+                        <div>{pageName}</div>
+                        <Breadcrumbs aria-label="breadcrumb" separator="›">
+                            <Link
+                            underline="hover"
+                            sx={{ display: 'flex', alignItems: 'center' }}
+                            color="inherit"
+                            href="/admin/dashboard"
+                            >
+                                <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                            </Link>
+                            <Typography
+                            sx={{ display: 'flex', alignItems: 'center' }}
+                            color="text.primary"
+                            >
+                                List
+                            </Typography>
+                        </Breadcrumbs>
                     </Box>
                 </Card>
             </Box>

@@ -16,6 +16,7 @@ export default function Categories() {
 
   const CustomFormDialog = CustomComponents.CustomFormDialog;
   const Breadcrumb = CustomComponents.Breadcrumb;
+  const ListPageCard = CustomComponents.ListPageCard;
 
   const [recordForEdit, setRecordForEdit] = useState(null);
 
@@ -98,29 +99,58 @@ export default function Categories() {
 
   return (
     <>
-      <Box>
         <Breadcrumb pageName="Categories"/>
-        <Card sx={{p: 2, boxShadow: 0, borderRadius: '9px'}}>
-          <Button
-              variant="contained"
-              endIcon={< AddCircleRounded />}
-              onClick={() => {
-                  dispatch(setFormDialogOpen({ isOpen: true, title: "Add Category"}));
-                  setRecordForEdit(null);
-                  // setCRUD(true);
-              }}
-              sx={{ borderRadius: '10px' }}>
-              Add
-          </Button>
-        </Card>
-      </Box>
+        <ListPageCard>
+            <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                <Button
+                    variant="contained"
+                    endIcon={< AddCircleRounded />}
+                    onClick={() => {
+                        dispatch(setFormDialogOpen({ isOpen: true, title: "Add Category"}));
+                        setRecordForEdit(null);
+                        // setCRUD(true);
+                    }}
+                    sx={{ borderRadius: '10px' }}>
+                    Add
+                </Button>
+            </Box>
 
-      <CustomFormDialog
-        size='md'
-        isFullWidth={true}>
-          <AddCategory
-          recordForEdit={recordForEdit}/>
-      </CustomFormDialog>
+            {/* <Grid container spacing={1}>
+                <Box style={{ width: '100%' }}>
+                    {
+                        props.groups.length > 0 &&
+                        <DataGrid
+                            autoHeight
+                            columns={columns}
+                            rows={props.groups}
+                            sx={{ borderColor: 'transparent' }}
+                            slots={{ toolbar: GridToolbar }}
+
+                            slotProps={{
+                                toolbar: {
+                                    showQuickFilter: true,
+                                    quickFilterProps: { debounceMs: 500 },
+                                },
+                            }}
+                            initialState={{
+                                pagination: {
+                                    paginationModel: {
+                                        pageSize: 5,
+                                    },
+                                },
+                            }}
+                            pageSizeOptions={[5]}
+                            disableRowSelectionOnClick />
+                    }
+                </Box>
+            </Grid> */}
+        </ListPageCard>
+        <CustomFormDialog
+            size='sm'
+            isFullWidth={true}>
+            <AddCategory
+            recordForEdit={recordForEdit}/>
+        </CustomFormDialog>
     </>
   )
 }
