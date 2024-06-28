@@ -86,7 +86,6 @@ export default function AddCategory(props:any) {
                         </Grid>
                         <Grid item xs={12}>
                             <CustomInput
-                                autoFocus
                                 name="description"
                                 label="Description"
                                 value={values.description}

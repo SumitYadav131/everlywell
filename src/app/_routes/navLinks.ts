@@ -1,7 +1,8 @@
 import { AuthenticationRoutes } from "./authenticationRoutes";
 import { MainRoutes } from "./mainRoutes";
 
-export const navLinks = [
+const navLinks = [
     ...MainRoutes,
     ...AuthenticationRoutes,
 ];
+export default navLinks;

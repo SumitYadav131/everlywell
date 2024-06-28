@@ -18,8 +18,7 @@ import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
 import { setOpen } from '@/app/_lib/store/features/drawer/drawerSlice';
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
-import { navLinks } from '@/app/_routes/navLinks';
-
+import navLinks  from '@/app/_routes/navLinks';
 
 
 const drawerWidth = 240;
