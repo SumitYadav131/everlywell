@@ -20,6 +20,7 @@ export default function Products() {
     const CustomForm = CustomComponents.CustomForm;
 
     const [recordForEdit, setRecordForEdit] = useState(null);
+    const [is_crud, setCRUD] = useState(true);
 
     const columns = useMemo(
         () => [
@@ -109,7 +110,7 @@ export default function Products() {
                         onClick={() => {
                             dispatch(setFormDialogOpen({ isOpen: true, title: "Add Product"}));
                             setRecordForEdit(null);
-                            // setCRUD(true);
+                            setCRUD(true);
                         }}
                         sx={{ borderRadius: '10px' }}>
                         Add

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CustomComponents } from '@/app/ui-component';
 import DialogContent from '@mui/material/DialogContent';
 // import DialogActions from '@mui/material/DialogActions';
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
 import { DialogTitle } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { setFormDialogOpen } from '@/app/_lib/store/features/dialog/formDialogSlice';
+import { createProductAction } from '@/app/_lib/store/thunks/auth/productAction';
 
 
 const initialFormValues = {
@@ -95,7 +96,7 @@ export default function AddProduct(props:any) {
         alert('add product form');
         // let group_id = values.id;
 
-        if (validate()) {
+        // if (validate()) {
         //     const formData = new FormData();
         //     formData.append('id', group_id);
         //     formData.append('name', values.group_name);
@@ -104,18 +105,40 @@ export default function AddProduct(props:any) {
 
         //     if (group_id) {
         //         const updateGroupApi = 'api/groups/'+group_id;
-        //         let data = {
-        //             "id":group_id,
-        //             "name":values.group_name,
-        //             "is_active":1,
-        //             "group_type":"Manual"
-        //         }
-        //         props.UpdateRecordCommonAction(updateGroupApi, data, CONFIRMED_UPDATE_GROUP, resetForm);
+                let data = {
+                    "name":"demo movie1",
+                    "description":"Whether you are new to PHP web frameworks or have years of experience, Laravel is a framework that can grow with you. We'll help you take your first steps as a web developer or give you a boost as you take your expertise to the next level. We can't wait to see what you build.",
+                    "duration":120,
+                    "ratings":"3.0",
+                    "totalRating":"100",
+                    "releaseYear":2023,
+                    "genres":"sdf, fads,asdf",
+                    "directors":"Whether Whether2 Whether3",
+                    "coverImage":"",
+                    "actors":"actor1, actor2, actor3",
+                    "price":25000
+                }
+                dispatch(createProductAction(data));
+                // props.UpdateRecordCommonAction(updateGroupApi, data, CONFIRMED_UPDATE_GROUP, resetForm);
         //     }else{
         //         props.InsertRecordCommonAction(createGroupApi, formData, CONFIRMED_CREATE_GROUP, resetForm);
         //     }
-        }
+        // }
     }
+
+    useEffect(() => {
+        if (props.recordForEdit) {
+            // setValues({
+            //     id: props.recordForEdit.id,
+            //     group_name: props.recordForEdit.name,
+            //     group_type: "Manual",
+            //     is_active: props.recordForEdit.is_active,
+            // })
+            setButtonText('Update');
+        }else{
+            setButtonText('Submit');
+        }
+    }, [props.recordForEdit]);
 
     return (
         <>

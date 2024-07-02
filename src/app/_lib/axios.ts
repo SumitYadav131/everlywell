@@ -12,8 +12,8 @@ Axios.interceptors.request.use(
         //         token = decodeURIComponent(cookiePair[1]);
         //     }
         // }
-        const token = getCookie('jwt');
-        // const token = localStorage.getItem('token');
+        // const token = getCookie('jwt');
+        const token = localStorage.getItem('token');
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
