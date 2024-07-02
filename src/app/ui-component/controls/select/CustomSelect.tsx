@@ -1,3 +1,4 @@
+import React from 'react';
 import { 
     FormControl, 
     FormHelperText, 
@@ -5,25 +6,15 @@ import {
     MenuItem, 
     Select 
 } from '@mui/material';
-import React from 'react'
 
 export default function CustomSelect(props: any) {
-    const {
-        name, 
-        label, 
-        label_id, 
-        id, 
-        value, 
-        error=null, 
-        onChange, 
-        options
-    } = props;
+    const { name, label, label_id, id, value, error=null, onChange, options } = props;
 
     return (
-        <FormControl 
+        <FormControl
             fullWidth
             variant="outlined"
-            {...(error && {error:true})} 
+            {...(error && {error:true})}
         >
             <InputLabel id={label_id}>{label}</InputLabel>
             <Select

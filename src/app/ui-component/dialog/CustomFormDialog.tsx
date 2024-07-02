@@ -1,5 +1,5 @@
 "use client"
-
+import * as React from 'react';
 import { Dialog, DialogTitle, Typography, Box } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { CustomComponents }  from '../../ui-component';

@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 import { CustomComponents } from '@/app/ui-component';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import { Grid } from '@mui/material';
+// import DialogActions from '@mui/material/DialogActions';
+import { Box, Dialog, Grid, Paper, Typography } from '@mui/material';
+import MultiSelect from '@/app/ui-component/controls/select/MultiSelect';
+import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
+import { DialogTitle } from '@mui/material';
+import { Close } from '@mui/icons-material';
+import { setFormDialogOpen } from '@/app/_lib/store/features/dialog/formDialogSlice';
+
 
 const initialFormValues = {
     id: '',
@@ -20,11 +26,15 @@ const initialFormValues = {
 };
 
 export default function AddProduct(props:any) {
+    const formDialogData = useAppSelector((state)=>state.formDialog);
+    const dispatch = useAppDispatch();
+
     const CustomInput = CustomComponents.CustomInput;
     const CustomSelect = CustomComponents.CustomSelect;
-    const CustomButton = CustomComponents.CustomButton;
+    // const CustomButton = CustomComponents.CustomButton;
     const CustomForm = CustomComponents.CustomForm;
     const UseForm = CustomComponents.UseForm;
+    const CustomIconButton = CustomComponents.CustomIconButton;
 
     const names = [
         {id:1, name:'Oliver Hansen'},
@@ -39,12 +49,33 @@ export default function AddProduct(props:any) {
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
 
-        if ('category_name' in fieldValues) {
-            temp.category_name = fieldValues.category_name ? "" : "Category Name is required!"
+        if ('product_name' in fieldValues) {
+            temp.product_name = fieldValues.product_name ? "" : "product_name is required!"
         }
 
         if ('description' in fieldValues) {
             temp.description = fieldValues.description ? "" : "Description is required!"
+        }
+
+        if ('categories' in fieldValues) {
+            temp.categories = fieldValues.categories ? "" : "categories is required!"
+        }
+
+        if ('barcode' in fieldValues) {
+            temp.barcode = fieldValues.barcode ? "" : "barcode is required!"
+        }
+
+        if ('sku' in fieldValues) {
+            temp.sku = fieldValues.sku ? "" : "sku is required!"
+        }
+        if ('price' in fieldValues) {
+            temp.price = fieldValues.price ? "" : "price is required!"
+        }
+        if ('discount' in fieldValues) {
+            temp.discount = fieldValues.discount ? "" : "discount is required!"
+        }
+        if ('brand' in fieldValues) {
+            temp.brand = fieldValues.brand ? "" : "brand is required!"
         }
 
         setErrors({
@@ -61,6 +92,7 @@ export default function AddProduct(props:any) {
     // insert
     const saveRecord = (e:any) => {
         e.preventDefault();
+        alert('add product form');
         // let group_id = values.id;
 
         if (validate()) {
@@ -112,7 +144,7 @@ export default function AddProduct(props:any) {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <CustomSelect
+                            {/* <CustomSelect
                                 id="categories_id"
                                 name="categories"
                                 label="Select Categories"
@@ -121,9 +153,19 @@ export default function AddProduct(props:any) {
                                 // error={props.error}
                                 onChange={handleInput}
                                 options={names}
-                                multiple
                             >
-                            </CustomSelect>
+                            </CustomSelect> */}
+
+                            <MultiSelect
+                                id="categories_id"
+                                name="categories"
+                                label="Select Categories"
+                                label_id="categories_id"
+                                value={values.categories}
+                                error={errors.categories}
+                                onChange={handleInput}
+                                options={names}
+                            />
                         </Grid>
                         <Grid item xs={6}>
                             <CustomInput
@@ -185,19 +227,14 @@ export default function AddProduct(props:any) {
                                 fullWidth
                             />
                         </Grid>
-                        {/* 
-                        product_image
+                        {/* product_image
                         is_active */}
                     </Grid>
                 </DialogContent>
-                <DialogActions>
-                    <CustomButton
-                        variant="contained"
-                        color="primary"
-                        text={buttonText}
-                        type="submit"
-                    />
-                </DialogActions>
+
+                <CustomComponents.DialogActionButton
+                    text={buttonText}
+                />
             </CustomForm>
         </>
     )
