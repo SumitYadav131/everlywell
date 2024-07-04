@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { CustomComponents } from '@/app/ui-component';
-import DialogContent from '@mui/material/DialogContent';
-// import DialogActions from '@mui/material/DialogActions';
-import { Box, Dialog, Grid, Paper, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import MultiSelect from '@/app/ui-component/controls/select/MultiSelect';
 import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
-import { DialogTitle } from '@mui/material';
-import { Close } from '@mui/icons-material';
-import { setFormDialogOpen } from '@/app/_lib/store/features/dialog/formDialogSlice';
-import { createProductAction } from '@/app/_lib/store/thunks/auth/productAction';
+import { createProductAction } from '@/app/_lib/store/thunks/productAction';
 
 
 const initialFormValues = {
@@ -27,15 +22,12 @@ const initialFormValues = {
 };
 
 export default function AddProduct(props:any) {
-    const formDialogData = useAppSelector((state)=>state.formDialog);
     const dispatch = useAppDispatch();
+    const isTaskLoading = useAppSelector((state)=> state.product.taskLoader);
 
     const CustomInput = CustomComponents.CustomInput;
-    const CustomSelect = CustomComponents.CustomSelect;
-    // const CustomButton = CustomComponents.CustomButton;
     const CustomForm = CustomComponents.CustomForm;
     const UseForm = CustomComponents.UseForm;
-    const CustomIconButton = CustomComponents.CustomIconButton;
 
     const names = [
         {id:1, name:'Oliver Hansen'},
@@ -51,7 +43,7 @@ export default function AddProduct(props:any) {
         let temp = { ...errors }
 
         if ('product_name' in fieldValues) {
-            temp.product_name = fieldValues.product_name ? "" : "product_name is required!"
+            temp.product_name = fieldValues.product_name ? "" : "Product name is required!"
         }
 
         if ('description' in fieldValues) {
@@ -59,25 +51,32 @@ export default function AddProduct(props:any) {
         }
 
         if ('categories' in fieldValues) {
-            temp.categories = fieldValues.categories ? "" : "categories is required!"
+            temp.categories = fieldValues.categories.length ? "" : "Category is required!"
         }
 
         if ('barcode' in fieldValues) {
-            temp.barcode = fieldValues.barcode ? "" : "barcode is required!"
+            temp.barcode = fieldValues.barcode ? "" : "Barcode is required!"
         }
 
         if ('sku' in fieldValues) {
             temp.sku = fieldValues.sku ? "" : "sku is required!"
         }
+
         if ('price' in fieldValues) {
             temp.price = fieldValues.price ? "" : "price is required!"
         }
+
         if ('discount' in fieldValues) {
             temp.discount = fieldValues.discount ? "" : "discount is required!"
         }
+
         if ('brand' in fieldValues) {
             temp.brand = fieldValues.brand ? "" : "brand is required!"
         }
+
+        // if ('tags' in fieldValues) {
+        //     temp.tags = fieldValues.tags ? "" : "Tag is required!"
+        // }
 
         setErrors({
             ...temp
@@ -93,37 +92,47 @@ export default function AddProduct(props:any) {
     // insert
     const saveRecord = (e:any) => {
         e.preventDefault();
+
         alert('add product form');
+        
+
         // let group_id = values.id;
 
-        // if (validate()) {
-        //     const formData = new FormData();
-        //     formData.append('id', group_id);
-        //     formData.append('name', values.group_name);
-        //     formData.append('is_active', 1);
-        //     formData.append('group_type', 'Manual');
+        if (validate()) {
+            const formData = new FormData();
+            // formData.append('id', group_id);
+            formData.append('product_name', values.product_name);
+            formData.append('description', values.description);
+            formData.append('barcode', values.barcode);
+            formData.append('brand', values.brand);
+            formData.append('categories', values.categories);
+            formData.append('discount', values.discount);
+            formData.append('price', values.price);
+            formData.append('product_image', values.product_image);
+            formData.append('sku', values.sku);
+            formData.append('tags', values.tags);
+            formData.append('is_active', values.is_active);
+            
 
         //     if (group_id) {
         //         const updateGroupApi = 'api/groups/'+group_id;
-                let data = {
-                    "name":"demo movie1",
-                    "description":"Whether you are new to PHP web frameworks or have years of experience, Laravel is a framework that can grow with you. We'll help you take your first steps as a web developer or give you a boost as you take your expertise to the next level. We can't wait to see what you build.",
-                    "duration":120,
-                    "ratings":"3.0",
-                    "totalRating":"100",
-                    "releaseYear":2023,
-                    "genres":"sdf, fads,asdf",
-                    "directors":"Whether Whether2 Whether3",
-                    "coverImage":"",
-                    "actors":"actor1, actor2, actor3",
-                    "price":25000
-                }
-                dispatch(createProductAction(data));
+                // let data = {
+                //     "product_name":"Food Sensitivity Test2",
+                //     "description":"This at-home lab test moeasures your body’s immune response to 96 common foods to help guide your food selection in a two-part elimination diet1.",
+                //     "categories":["Nutritional", "Health"],
+                //     "barcode":"45645465465465",
+                //     "sku":"dfdsa54545",
+                //     "price":20000,
+                //     "discount":10,
+                //     "brand":"dfsadsf",
+                //     "is_active":true
+                // }
+                dispatch(createProductAction(formData));
                 // props.UpdateRecordCommonAction(updateGroupApi, data, CONFIRMED_UPDATE_GROUP, resetForm);
         //     }else{
         //         props.InsertRecordCommonAction(createGroupApi, formData, CONFIRMED_CREATE_GROUP, resetForm);
         //     }
-        // }
+        }
     }
 
     useEffect(() => {
@@ -143,7 +152,7 @@ export default function AddProduct(props:any) {
     return (
         <>
             <CustomForm onSubmit={saveRecord} id="CATEGORY_FORM">
-                <DialogContent dividers>
+                <CustomComponents.FormDialogContent>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <CustomInput
@@ -167,18 +176,6 @@ export default function AddProduct(props:any) {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            {/* <CustomSelect
-                                id="categories_id"
-                                name="categories"
-                                label="Select Categories"
-                                label_id="categories_id"
-                                value={values.categories}
-                                // error={props.error}
-                                onChange={handleInput}
-                                options={names}
-                            >
-                            </CustomSelect> */}
-
                             <MultiSelect
                                 id="categories_id"
                                 name="categories"
@@ -188,6 +185,7 @@ export default function AddProduct(props:any) {
                                 error={errors.categories}
                                 onChange={handleInput}
                                 options={names}
+                                variant="outlined"
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -246,18 +244,24 @@ export default function AddProduct(props:any) {
                                 name="tags"
                                 value={values.tags}
                                 onChange={handleInput}
-                                error={errors.tags}
+                                // error={errors.tags}
                                 fullWidth
                             />
                         </Grid>
                         {/* product_image
                         is_active */}
                     </Grid>
-                </DialogContent>
+                </CustomComponents.FormDialogContent>
 
-                <CustomComponents.DialogActionButton
-                    text={buttonText}
-                />
+                <CustomComponents.DialogActionButton>
+                    <CustomComponents.CustomButton
+                        text={buttonText}
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        isTaskLoading={isTaskLoading}
+                    />
+                </CustomComponents.DialogActionButton>
             </CustomForm>
         </>
     )

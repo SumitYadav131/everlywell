@@ -2,6 +2,10 @@
     position: sticky; 
     bottom: 0;
     background-color: white;
-    border-top: 1px solid #c8c8c8; 
+    border-top: 1px solid #c8c8c8;
     z-index: 1;
+}
+
+.dialogContentBorderBottom{
+    border-bottom: 0;
 }

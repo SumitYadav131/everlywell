@@ -6,13 +6,15 @@ import { Box, Button, Card, IconButton, Tooltip } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { AddCircleRounded } from '@mui/icons-material';
-import { useAppDispatch } from '@/app/_lib/store/hooks';
-import { setFormDialogOpen } from '@/app/_lib/store/features/dialog/formDialogSlice';
+import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
+// import { setFormDialogOpen } from '@/app/_lib/store/features/dialog/formDialogSlice';
+import { setDialogState } from '@/app/_lib/store/features/product/productSlice';
 import AddProduct from './add/addProduct';
 
 
 export default function Products() {
     const dispatch = useAppDispatch();
+    const formDialogData = useAppSelector((state)=>state.product);
 
     const CustomFormDialog = CustomComponents.CustomFormDialog;
     const Breadcrumb = CustomComponents.Breadcrumb;
@@ -108,7 +110,8 @@ export default function Products() {
                         variant="contained"
                         endIcon={< AddCircleRounded />}
                         onClick={() => {
-                            dispatch(setFormDialogOpen({ isOpen: true, title: "Add Product"}));
+                            // dispatch(setFormDialogOpen({ isOpen: true, title: "Add Product"}));
+                            dispatch(setDialogState({ isOpen: true, title: "Add Product"}));
                             setRecordForEdit(null);
                             setCRUD(true);
                         }}
@@ -150,7 +153,8 @@ export default function Products() {
 
             <CustomFormDialog
                 size='md'
-                isFullWidth={true}>
+                isFullWidth={true}
+                formDialogData={formDialogData}>
                 <AddProduct
                 recordForEdit={recordForEdit}/>
             </CustomFormDialog>

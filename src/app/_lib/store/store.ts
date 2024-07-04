@@ -2,6 +2,9 @@ import { configureStore } from '@reduxjs/toolkit'
 import authReducer from "./features/auth/authSlice";
 import drawerReducer from "./features/drawer/drawerSlice";
 import formDialogReducer from "./features/dialog/formDialogSlice";
+import productReducer from './features/product/productSlice';
+// import loaderReducer from './features/loader/loaderSlice';
+
 
 export const makeStore = () => {
   return configureStore({
@@ -9,6 +12,8 @@ export const makeStore = () => {
       auth: authReducer,
       drawer: drawerReducer,
       formDialog: formDialogReducer,
+      product: productReducer,
+      // loader:loaderReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

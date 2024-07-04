@@ -60,7 +60,6 @@
 //     email:string,
 //     password:string
 // }
-
 // let getuser:authUser={email:'dafs', password:'adfsafs'}
 // console.log(getuser);
 

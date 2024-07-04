@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createProductAction } from '../../thunks/auth/productAction';
+import { createProductAction } from '../../thunks/productAction';
 
 // export interface AuthUserState {
 //   authUser:{
@@ -15,23 +15,43 @@ import { createProductAction } from '../../thunks/auth/productAction';
 
 const initialState = {
   products: {},
+  taskLoader:false,
+  isDialogOpen: false,
+  dialogTitle:'',
 }
 
-export const authSlice = createSlice({
+export const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    setDialogState:(state, action)=>{
+      state.isDialogOpen = action.payload.isOpen;
+      state.dialogTitle = action.payload.title;
+    }
+  },
   extraReducers:(builder)=>{
     builder
-    .addCase(createProductAction.pending, (state, action)=>{})
+    .addCase(createProductAction.pending, (state, action)=>{
+      state.taskLoader = true;
+    })
     .addCase(createProductAction.fulfilled,(state, {payload})=>{
+      state.taskLoader = false;
+      state.isDialogOpen = false;
+      state.dialogTitle = "";
+
       const productData = payload.data;
+      
+      // console.log(productData);
+      
       state.products = productData;
     })
     .addCase(createProductAction.rejected,(state)=>{
-      // 
+      state.taskLoader = false;
     })
   }
 })
 
-export default authSlice.reducer;
+export const {setDialogState} = productSlice.actions;
+
+
+export default productSlice.reducer;

@@ -9,6 +9,9 @@ const darkTheme: ThemeOptions = {
         // secondary:{
         //     main:'#7',
         // },
+        // grey:{
+        //     500: "#2a2d64",
+        // },
         background:{
             default: 'rgb(26, 34, 63)'
         }
