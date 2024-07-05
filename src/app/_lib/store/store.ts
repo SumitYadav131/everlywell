@@ -3,7 +3,7 @@ import authReducer from "./features/auth/authSlice";
 import drawerReducer from "./features/drawer/drawerSlice";
 import formDialogReducer from "./features/dialog/formDialogSlice";
 import productReducer from './features/product/productSlice';
-// import loaderReducer from './features/loader/loaderSlice';
+import loaderReducer from './features/loader/loaderSlice';
 
 
 export const makeStore = () => {
@@ -13,7 +13,7 @@ export const makeStore = () => {
       drawer: drawerReducer,
       formDialog: formDialogReducer,
       product: productReducer,
-      // loader:loaderReducer,
+      loader:loaderReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

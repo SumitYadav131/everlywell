@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 export interface FormDialogState {
-    isOpen: boolean;
-    dialogTitle: string;
+  isOpen: boolean;
+  dialogTitle: string;
 }
 
 const initialState: FormDialogState = {

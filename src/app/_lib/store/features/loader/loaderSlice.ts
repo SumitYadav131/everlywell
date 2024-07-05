@@ -1,26 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface LoaderState {
-    // taskLoader: boolean;
+    taskLoader: boolean;
 }
 
 const initialState: LoaderState = {
-    // taskLoader: false,
+    taskLoader: false,
 }
 
 export const loaderSlice = createSlice({
   name: 'loader',
   initialState,
   reducers: {
-    // setTaskLoader:(state, action)=>{
-    //   state.taskLoader = action.payload;
-    // }
+    setTaskLoader:(state, action)=>{
+      state.taskLoader = action.payload;
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const {
-  // setTaskLoader
-} = loaderSlice.actions;
+export const { setTaskLoader } = loaderSlice.actions;
 
 export default loaderSlice.reducer;

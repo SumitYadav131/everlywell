@@ -1,8 +1,11 @@
+import { useAppSelector } from '@/app/_lib/store/hooks';
 import { Button, CircularProgress } from '@mui/material';
 import React from 'react'
 
 export default function CustomButton(props: any) {
-  const { text, size, color, variant, isTaskLoading, ...other } = props;
+  const { text, size, color, variant, ...other } = props;
+
+  const isTaskLoading = useAppSelector((state)=> state.loader.taskLoader);
 
   return (
     <>

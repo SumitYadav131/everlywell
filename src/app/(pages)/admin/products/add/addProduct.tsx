@@ -4,6 +4,7 @@ import { Grid } from '@mui/material';
 import MultiSelect from '@/app/ui-component/controls/select/MultiSelect';
 import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
 import { createProductAction } from '@/app/_lib/store/thunks/productAction';
+import { setTaskLoader } from '@/app/_lib/store/features/loader/loaderSlice';
 
 
 const initialFormValues = {
@@ -23,7 +24,6 @@ const initialFormValues = {
 
 export default function AddProduct(props:any) {
     const dispatch = useAppDispatch();
-    const isTaskLoading = useAppSelector((state)=> state.product.taskLoader);
 
     const CustomInput = CustomComponents.CustomInput;
     const CustomForm = CustomComponents.CustomForm;
@@ -127,6 +127,7 @@ export default function AddProduct(props:any) {
                 //     "brand":"dfsadsf",
                 //     "is_active":true
                 // }
+                dispatch(setTaskLoader(true));
                 dispatch(createProductAction(formData));
                 // props.UpdateRecordCommonAction(updateGroupApi, data, CONFIRMED_UPDATE_GROUP, resetForm);
         //     }else{
@@ -253,15 +254,9 @@ export default function AddProduct(props:any) {
                     </Grid>
                 </CustomComponents.FormDialogContent>
 
-                <CustomComponents.DialogActionButton>
-                    <CustomComponents.CustomButton
-                        text={buttonText}
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        isTaskLoading={isTaskLoading}
-                    />
-                </CustomComponents.DialogActionButton>
+                <CustomComponents.DialogActionButton
+                    buttonText={buttonText}
+                />
             </CustomForm>
         </>
     )

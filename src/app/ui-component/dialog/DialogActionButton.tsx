@@ -3,6 +3,8 @@ import { CustomComponents } from '@/app/ui-component';
 import styles from "./formDialog.module.css";
 
 export default function DialogActionButton(props:any) {
+  const CustomButton = CustomComponents.CustomButton;
+  const { buttonText } = props;
   return (
     <>
       <DialogActions
@@ -10,6 +12,12 @@ export default function DialogActionButton(props:any) {
         // sx={{ backgroundColor: (theme:any) => theme.palette.grey[500]}}
       >
         {props.children}
+        <CustomButton
+            text={buttonText}
+            variant="contained"
+            color="primary"
+            type="submit"
+        />
       </DialogActions>
     </>
   )

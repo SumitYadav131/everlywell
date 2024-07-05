@@ -9,8 +9,8 @@ import { setFormDialogOpen } from '@/app/_lib/store/features/dialog/formDialogSl
 
 
 export default function CustomFormDialog(props: any) {
-    // const formDialogData = useAppSelector((state)=>state.formDialog);
-    const formDialogData = props.formDialogData;
+    const formDialogData = useAppSelector((state)=>state.formDialog);
+    // const formDialogData = props.formDialogData;
     const dispatch = useAppDispatch();
 
     const { children, size, isFullWidth = true } = props;
@@ -18,7 +18,7 @@ export default function CustomFormDialog(props: any) {
     const CustomIconButton = CustomComponents.CustomIconButton;
 
     return (
-        <Dialog open={formDialogData.isDialogOpen} maxWidth={size} fullWidth={isFullWidth} disableEnforceFocus>
+        <Dialog open={formDialogData.isOpen} maxWidth={size} fullWidth={isFullWidth} disableEnforceFocus>
             <DialogTitle>
                 <Box
                     sx={{
