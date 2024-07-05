@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createProductAction } from '../../thunks/productAction';
+import { createProductAction, getProductsAction } from '../../thunks/productAction';
 
 // export interface AuthUserState {
 //   authUser:{
@@ -15,6 +15,7 @@ import { createProductAction } from '../../thunks/productAction';
 
 const initialState = {
   products: {},
+  productsDataLoading: false,
 }
 
 export const productSlice = createSlice({
@@ -26,10 +27,21 @@ export const productSlice = createSlice({
     .addCase(createProductAction.pending, (state, action)=>{})
     .addCase(createProductAction.fulfilled,(state, {payload})=>{
       const productData = payload.data;
-      // console.log(productData);
       state.products = productData;
     })
     .addCase(createProductAction.rejected,(state)=>{})
+
+    .addCase(getProductsAction.pending, (state, action)=>{
+      state.productsDataLoading = true;
+    })
+    .addCase(getProductsAction.fulfilled, (state, {payload})=>{
+      state.productsDataLoading = false;
+      const productsData = payload?.data.data.products;
+      state.products = productsData;
+    })
+    .addCase(getProductsAction.rejected, (state, action)=>{
+      state.productsDataLoading = false;
+    })
   }
 })
 

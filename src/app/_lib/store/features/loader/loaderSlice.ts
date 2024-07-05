@@ -18,7 +18,6 @@ export const loaderSlice = createSlice({
   },
 })
 
-// Action creators are generated for each case reducer function
 export const { setTaskLoader } = loaderSlice.actions;
 
 export default loaderSlice.reducer;

@@ -14,6 +14,8 @@ import CustomFormDialog from "./dialog/CustomFormDialog";
 import CustomForm from "./forms/CustomForm";
 import { UseForm } from "./forms/UseForm";
 import FormDialogContent from "./dialog/FormDialogContent";
+import SnackbarNotification from "./notification/SnackbarNotification";
+import CustomLinearLoader from "./loader/LinearLoader";
 
 
 export const CustomComponents = {
@@ -33,4 +35,6 @@ export const CustomComponents = {
     ListPageCard,
     DialogActionButton,
     FormDialogContent,
+    SnackbarNotification,
+    CustomLinearLoader,
 }

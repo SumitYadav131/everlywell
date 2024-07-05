@@ -8,6 +8,7 @@ import { useAppSelector } from "@/app/_lib/store/hooks";
 import AdminNavBar from "@/app/_layout/navbar/adminNavBar";
 import Sidebar from "@/app/_layout/sidebar/sidebar";
 import Footer from "@/app/_layout/footer/footer";
+import CustomLinearLoader from "@/app/ui-component/loader/LinearLoader";
 
 const drawerWidth = 240;
 
@@ -79,7 +80,7 @@ const Layout = ({children}:any)=>{
           <AdminNavBar ColorModeContext={ColorModeContext}/>
           <Sidebar/>
           <Main open={open}>
-            <DrawerHeader />
+            <DrawerHeader/>
             {children}
             <Footer/>
           </Main>
