@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { CustomComponents } from '@/app/ui-component';
-import { Box, Button, IconButton, Tooltip, Grid } from '@mui/material';
+import { Box, Button, IconButton, Tooltip, Grid, Container } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { AddCircleRounded } from '@mui/icons-material';
@@ -22,10 +22,13 @@ export default function Products() {
     const ListPageCard = CustomComponents.ListPageCard;
     const SnackbarNotification = CustomComponents.SnackbarNotification;
     const CustomLinearLoader = CustomComponents.CustomLinearLoader;
+    const DataGridActions = CustomComponents.DataGridActions;
+    const ConfirmDialog = CustomComponents.ConfirmDialog;
 
     const [recordForEdit, setRecordForEdit] = useState(null);
     const [is_crud, setCRUD] = useState(true);
     const [allProducts, setProducts] = useState(Array<any>);
+    const [dialogContent, setDialogContent] = useState({ isOpen: false, title: '', subTitle: '' });
 
     useEffect(() => {
         dispatch(getProductsAction(""));
@@ -39,77 +42,56 @@ export default function Products() {
         }
     }, [getallProducts])
     
-    useEffect(() => {
-      console.log(allProducts);
-    }, [allProducts])
+    // useEffect(() => {
+    //   console.log(allProducts);
+    // }, [allProducts])
+
+    // delete
+    const deleteRecord = (id: any) => {
+        alert(id);
+        // const deleteRecordApi = "api/groups/" + id;
+        // props.DeleteRecordCommonAction(deleteRecordApi, id, CONFIRMED_DELETE_GROUP_ACTION);
+    }
     
 
-    const columns:any = useMemo(
+    const columns: any = useMemo(
         () => [
-            {
-                field: '_id',
-                headerName: 'ID',
-                width: 150,
-            },
             {
                 field: 'product_name',
                 headerName: 'Product Name',
                 sortable: true,
-                width: 200,
+                width: 400,
             },
             {
                 field: 'price',
                 headerName: 'Price',
                 sortable: true,
+                width: 200
             },
-            // {
-            //     field: 'categories',
-            //     headerName: 'Categories',
-            //     width: 150,
-            //     renderCell: (params: any) => {
-            //         return (
-            //             <Box>{params}</Box>
-            //         )
-            //     }
-            // },
-            // {
-            //     field: 'manage_members_action',
-            //     headerName: 'Manage Members',
-            //     type: 'actions',
-            //     sortable: false,
-            //     flex: 1,
-            //     renderCell: (params: any) => {
-            //         return (
-            //             <Tooltip title='Manage Members'>
-            //                 <IconButton
-            //                     onClick={
-            //                         ()=>{
-            //                             // manageMembersAction(params);
-            //                         }
-            //                     }>
-            //                     <GroupAddIcon />
-            //                 </IconButton>
-            //             </Tooltip>
-            //         )
-            //     }
-            // },
+            {
+                field: 'categories',
+                headerName: 'Categories',
+                sortable: false,
+                width: 400
+            },
             {
                 field: 'actions',
                 headerName: 'Actions',
                 type: 'actions',
                 sortable: false,
-                flex: 1,
+                // flex: 1,
+                width:150,
                 renderCell: (params:any) => {
                     return (
                         <>
-                            {/* <DataGridActions
+                            <DataGridActions
                                 params={params}
                                 setRecordForEdit={setRecordForEdit}
                                 deleteFunction={deleteRecord}
                                 setDialogContent={setDialogContent}
                                 setCRUD={setCRUD}
                                 title="Update Group"
-                            /> */}
+                            />
                         </>
                     )
                 }
@@ -143,18 +125,23 @@ export default function Products() {
                             </Button>
                         </Box>
 
-                        <Grid container spacing={1}>
-                            <Box style={{ width: '100%' }}>
+                        <Grid
+                            container
+                            direction="row"
+                            justifyContent="center"
+                            alignItems="center"
+                        >
+                            <Box sx={{ height: 400 }}
+                                maxWidth={{xs:280, sm:400, md:'100%', lg:1200}}
+                            >
                                 {
                                     allProducts.length > 0 &&
                                     <DataGrid
-                                        autoHeight
                                         columns={columns}
                                         rows={allProducts}
-                                        sx={{ borderColor: 'transparent' }}
+                                        // sx={{ borderColor: 'transparent' }}
                                         slots={{ toolbar: GridToolbar }}
                                         getRowId={(row) => row._id} 
-
                                         slotProps={{
                                             toolbar: {
                                                 showQuickFilter: true,
@@ -168,12 +155,17 @@ export default function Products() {
                                                 },
                                             },
                                         }}
-                                        pageSizeOptions={[5]}
+                                        pageSizeOptions={[5, 10, 20]}
                                         disableRowSelectionOnClick />
                                 }
                             </Box>
                         </Grid>
                     </ListPageCard>
+
+                    <ConfirmDialog
+                        dialogContent={dialogContent}
+                        setDialogContent={setDialogContent}
+                    ></ConfirmDialog>
 
                     <CustomFormDialog
                         size='md'

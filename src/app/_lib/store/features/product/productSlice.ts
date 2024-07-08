@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createProductAction, getProductsAction } from '../../thunks/productAction';
+import { createProductAction, deleteProductsAction, getProductsAction } from '../../thunks/productAction';
 
 // export interface AuthUserState {
 //   authUser:{
@@ -41,6 +41,13 @@ export const productSlice = createSlice({
     })
     .addCase(getProductsAction.rejected, (state, action)=>{
       state.productsDataLoading = false;
+    })
+
+    .addCase(deleteProductsAction.pending, (state, action)=>{
+    })
+    .addCase(deleteProductsAction.fulfilled, (state, {payload})=>{
+    })
+    .addCase(deleteProductsAction.rejected, (state, action)=>{
     })
   }
 })

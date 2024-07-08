@@ -16,6 +16,8 @@ import { UseForm } from "./forms/UseForm";
 import FormDialogContent from "./dialog/FormDialogContent";
 import SnackbarNotification from "./notification/SnackbarNotification";
 import CustomLinearLoader from "./loader/LinearLoader";
+import DataGridActions from "./datagridactions/DataGridActions";
+import ConfirmDialog from "./dialog/ConfirmDialog";
 
 
 export const CustomComponents = {
@@ -37,4 +39,6 @@ export const CustomComponents = {
     FormDialogContent,
     SnackbarNotification,
     CustomLinearLoader,
+    DataGridActions,
+    ConfirmDialog,
 }

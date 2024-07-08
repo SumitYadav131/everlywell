@@ -6,7 +6,6 @@ import { setNotification } from '../features/notification/notificationSlice';
 
 export const createProductAction = createAsyncThunk('product/createProduct',async(data:any, thunkAPI)=>{
     const result = axios.post('api/products', data);
-
     result.then((response)=>{
         thunkAPI.dispatch(setFormDialogOpen({isOpen: false, title: ""}));
         thunkAPI.dispatch(setTaskLoader(false));
@@ -26,7 +25,6 @@ export const createProductAction = createAsyncThunk('product/createProduct',asyn
             getSeverity: 'error'
         }))
     })
-
     return result;
 });
 
@@ -37,6 +35,32 @@ export const getProductsAction = createAsyncThunk(
             const result = axios.get('api/products');
 
             result.then((res)=>{
+            },(err)=>{
+                thunkAPI.dispatch(setNotification({
+                    isOpenSnackbar: true, 
+                    messageText: err.message,
+                    getSeverity: 'error'
+                }))
+            })
+
+            return result;
+        } catch (err) {
+        }
+    }
+);
+
+export const deleteProductsAction = createAsyncThunk(
+    "product/deleteProduct",
+    async (data:any, thunkAPI) => {
+        try {            
+            const result = axios.delete('api/products/'+ data.id);
+
+            result.then((res)=>{
+                thunkAPI.dispatch(setNotification({
+                    isOpenSnackbar: true, 
+                    messageText:'Product deleted successfully.',
+                    getSeverity: 'success'
+                }))
             },(err)=>{
                 thunkAPI.dispatch(setNotification({
                     isOpenSnackbar: true, 

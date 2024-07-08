@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, CssBaseline, ThemeProvider, createTheme, styled } from "@mui/material";
+import { Box, Container, CssBaseline, Grid, ThemeProvider, Toolbar, Typography, createTheme, styled } from "@mui/material";
 import { createContext, useMemo, useState } from "react";
 import darkTheme from "@/app/theme/darkTheme";
 import lightTheme from "@/app/theme/lightTheme";
@@ -8,7 +8,6 @@ import { useAppSelector } from "@/app/_lib/store/hooks";
 import AdminNavBar from "@/app/_layout/navbar/adminNavBar";
 import Sidebar from "@/app/_layout/sidebar/sidebar";
 import Footer from "@/app/_layout/footer/footer";
-import CustomLinearLoader from "@/app/ui-component/loader/LinearLoader";
 
 const drawerWidth = 240;
 
