@@ -17,7 +17,7 @@ export const formDialogSlice = createSlice({
   reducers: {
     setFormDialogOpen:(state, action)=>{
       state.isOpen = action.payload.isOpen;
-      state.dialogTitle = action.payload.title;
+      state.dialogTitle = action.payload.dialogTitle;
     }
   },
 })

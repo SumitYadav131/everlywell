@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { CustomComponents } from '@/app/ui-component';
+import { CustomComponents } from '@/ui-component';
 import { Grid } from '@mui/material';
-import MultiSelect from '@/app/ui-component/controls/select/MultiSelect';
-import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
-import { createProductAction } from '@/app/_lib/store/thunks/productAction';
-import { setTaskLoader } from '@/app/_lib/store/features/loader/loaderSlice';
+import MultiSelect from '@/ui-component/controls/select/MultiSelect';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { createProductAction, updateProductAction } from '@/lib/store/thunks/productAction';
+import { setTaskLoader } from '@/lib/store/features/loader/loaderSlice';
 
 
 const initialFormValues = {
@@ -91,16 +91,13 @@ export default function AddProduct(props:any) {
 
     // insert
     const saveRecord = (e:any) => {
-        e.preventDefault();
+        e.preventDefault();        
 
-        alert('add product form');
-        
-
-        // let group_id = values.id;
+        let _id = values.id;
 
         if (validate()) {
             const formData = new FormData();
-            // formData.append('id', group_id);
+            formData.append('id', _id);
             formData.append('product_name', values.product_name);
             formData.append('description', values.description);
             formData.append('barcode', values.barcode);
@@ -113,8 +110,8 @@ export default function AddProduct(props:any) {
             formData.append('tags', values.tags);
             formData.append('is_active', values.is_active);
             
-
-        //     if (group_id) {
+            dispatch(setTaskLoader(true));
+            if (_id) {
         //         const updateGroupApi = 'api/groups/'+group_id;
                 // let data = {
                 //     "product_name":"Food Sensitivity Test2",
@@ -127,23 +124,32 @@ export default function AddProduct(props:any) {
                 //     "brand":"dfsadsf",
                 //     "is_active":true
                 // }
-                dispatch(setTaskLoader(true));
-                dispatch(createProductAction(formData));
+                
+                dispatch(updateProductAction(formData));
                 // props.UpdateRecordCommonAction(updateGroupApi, data, CONFIRMED_UPDATE_GROUP, resetForm);
-        //     }else{
-        //         props.InsertRecordCommonAction(createGroupApi, formData, CONFIRMED_CREATE_GROUP, resetForm);
-        //     }
+            }else{
+                dispatch(createProductAction(formData));
+                // props.InsertRecordCommonAction(createGroupApi, formData, CONFIRMED_CREATE_GROUP, resetForm);
+            }
         }
     }
 
     useEffect(() => {
-        if (props.recordForEdit) {
-            // setValues({
-            //     id: props.recordForEdit.id,
-            //     group_name: props.recordForEdit.name,
-            //     group_type: "Manual",
-            //     is_active: props.recordForEdit.is_active,
-            // })
+        if (props.recordForEdit) {            
+            setValues({
+                id: props.recordForEdit._id,
+                product_name: props.recordForEdit.product_name,
+                description: props.recordForEdit.description,
+                barcode: props.recordForEdit.barcode,
+                brand: props.recordForEdit.brand,
+                categories: props.recordForEdit.categories,
+                discount: props.recordForEdit.discount,
+                price: props.recordForEdit.price,
+                // product_image: props.recordForEdit,
+                sku: props.recordForEdit.sku,
+                tags: props.recordForEdit.tags,
+                // is_active: props.recordForEdit,
+            })
             setButtonText('Update');
         }else{
             setButtonText('Submit');

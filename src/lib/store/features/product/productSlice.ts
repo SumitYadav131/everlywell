@@ -1,20 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createProductAction, deleteProductsAction, getProductsAction } from '../../thunks/productAction';
+import { createProductAction, deleteProductAction, getProductsAction } from '../../thunks/productAction';
 
-// export interface AuthUserState {
-//   authUser:{
-//     id:string,
-//     name:string,
-//     email:string,
-//     role:string,
-//     passwordChangedAt:string,
-//     status:string,
-//     token:string,
-//   };
-// }
+export interface AuthUserState {
+  products: any;
+  productsDataLoading: boolean;
+}
 
-const initialState = {
-  products: {},
+const initialState: AuthUserState = {
+  products: [],
   productsDataLoading: false,
 }
 
@@ -26,11 +19,11 @@ export const productSlice = createSlice({
     builder
     .addCase(createProductAction.pending, (state, action)=>{})
     .addCase(createProductAction.fulfilled,(state, {payload})=>{
-      const productData = payload.data;
-      state.products = productData;
+      let getInsertedProduct = (payload.data.data.product);
+      state.products.push(getInsertedProduct);
     })
     .addCase(createProductAction.rejected,(state)=>{})
-
+    // ---------- get products
     .addCase(getProductsAction.pending, (state, action)=>{
       state.productsDataLoading = true;
     })
@@ -42,12 +35,13 @@ export const productSlice = createSlice({
     .addCase(getProductsAction.rejected, (state, action)=>{
       state.productsDataLoading = false;
     })
-
-    .addCase(deleteProductsAction.pending, (state, action)=>{
+    // --------- delete
+    .addCase(deleteProductAction.pending, (state, action)=>{
     })
-    .addCase(deleteProductsAction.fulfilled, (state, {payload})=>{
+    .addCase(deleteProductAction.fulfilled, (state, {payload})=>{
+      state.products = state.products.filter((product:any) => product._id !== payload);
     })
-    .addCase(deleteProductsAction.rejected, (state, action)=>{
+    .addCase(deleteProductAction.rejected, (state, action)=>{
     })
   }
 })

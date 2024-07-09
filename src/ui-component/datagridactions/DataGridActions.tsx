@@ -4,17 +4,21 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useState } from 'react';
+import { useAppDispatch } from '@/lib/store/hooks';
+import { setFormDialogOpen } from '@/lib/store/features/dialog/formDialogSlice';
 
 const ITEM_HEIGHT = 48;
 
 export default function DataGridActions(props: any) {
+    const dispatch = useAppDispatch();
+
     const {
         params,
         setDialogContent,
         setRecordForEdit,
         deleteFunction,
         setCRUD,
-        title="",
+        dialogTitle="",
     } = props;
     
     const isSetCRUD = (setCRUD)? true: false;
@@ -30,7 +34,7 @@ export default function DataGridActions(props: any) {
     };
 
     const editRecord = ()=>{
-        props.ToggleCustomFormDialogAction({ isOpen: true, title: title});
+        dispatch(setFormDialogOpen({ isOpen: true, dialogTitle: dialogTitle}));
         setRecordForEdit(params.row);
         if(isSetCRUD){
             setCRUD(true);

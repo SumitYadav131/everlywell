@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import StoreProvider from "./StoreProvider";
+import StoreProvider from "../StoreProvider";
 
 export const metadata :Metadata = {
   title: {

@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import axios from '@/app/_lib/axios';
+import axios from '@/lib/axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const loginUserAction = createAsyncThunk('signupUser',async(data:any)=>{
     const result = axios.post('api/auth/login', data);

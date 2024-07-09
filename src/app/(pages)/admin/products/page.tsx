@@ -1,15 +1,15 @@
 "use client"
 
 import { useEffect, useMemo, useState } from 'react';
-import { CustomComponents } from '@/app/ui-component';
+import { CustomComponents } from '@/ui-component';
 import { Box, Button, IconButton, Tooltip, Grid, Container } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { AddCircleRounded } from '@mui/icons-material';
-import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
-import { setFormDialogOpen } from '@/app/_lib/store/features/dialog/formDialogSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { setFormDialogOpen } from '@/lib/store/features/dialog/formDialogSlice';
 import AddProduct from './add/addProduct';
-import { getProductsAction } from '@/app/_lib/store/thunks/productAction';
+import { deleteProductAction, getProductsAction } from '@/lib/store/thunks/productAction';
 
 
 export default function Products() {
@@ -31,7 +31,7 @@ export default function Products() {
     const [dialogContent, setDialogContent] = useState({ isOpen: false, title: '', subTitle: '' });
 
     useEffect(() => {
-        dispatch(getProductsAction(""));
+        dispatch(getProductsAction());
     }, []);
 
     useEffect(() => {
@@ -41,18 +41,11 @@ export default function Products() {
             setProducts([]);
         }
     }, [getallProducts])
-    
-    // useEffect(() => {
-    //   console.log(allProducts);
-    // }, [allProducts])
 
     // delete
     const deleteRecord = (id: any) => {
-        alert(id);
-        // const deleteRecordApi = "api/groups/" + id;
-        // props.DeleteRecordCommonAction(deleteRecordApi, id, CONFIRMED_DELETE_GROUP_ACTION);
+        dispatch(deleteProductAction(id));
     }
-    
 
     const columns: any = useMemo(
         () => [
@@ -90,7 +83,7 @@ export default function Products() {
                                 deleteFunction={deleteRecord}
                                 setDialogContent={setDialogContent}
                                 setCRUD={setCRUD}
-                                title="Update Group"
+                                dialogTitle= "Update Product"
                             />
                         </>
                     )
@@ -116,7 +109,7 @@ export default function Products() {
                                 variant="contained"
                                 endIcon={< AddCircleRounded />}
                                 onClick={() => {
-                                    dispatch(setFormDialogOpen({ isOpen: true, title: "Add Product"}));
+                                    dispatch(setFormDialogOpen({ isOpen: true, dialogTitle: "Add Product"}));
                                     setRecordForEdit(null);
                                     setCRUD(true);
                                 }}
@@ -132,7 +125,7 @@ export default function Products() {
                             alignItems="center"
                         >
                             <Box sx={{ height: 400 }}
-                                maxWidth={{xs:280, sm:400, md:'100%', lg:1200}}
+                                maxWidth={{xs:280, sm:400, md:800, lg:1200}}
                             >
                                 {
                                     allProducts.length > 0 &&

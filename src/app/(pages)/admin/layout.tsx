@@ -2,12 +2,12 @@
 
 import { Box, Container, CssBaseline, Grid, ThemeProvider, Toolbar, Typography, createTheme, styled } from "@mui/material";
 import { createContext, useMemo, useState } from "react";
-import darkTheme from "@/app/theme/darkTheme";
-import lightTheme from "@/app/theme/lightTheme";
-import { useAppSelector } from "@/app/_lib/store/hooks";
-import AdminNavBar from "@/app/_layout/navbar/adminNavBar";
-import Sidebar from "@/app/_layout/sidebar/sidebar";
-import Footer from "@/app/_layout/footer/footer";
+import darkTheme from "@/theme/darkTheme";
+import lightTheme from "@/theme/lightTheme";
+import { useAppSelector } from "@/lib/store/hooks";
+import AdminNavBar from "@/ui-component/layout/navbar/adminNavBar";
+import Sidebar from "@/ui-component/layout/sidebar/sidebar";
+import Footer from "@/ui-component/layout/footer/footer";
 
 const drawerWidth = 240;
 

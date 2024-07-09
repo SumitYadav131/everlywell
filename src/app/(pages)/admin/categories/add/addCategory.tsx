@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CustomComponents } from '@/app/ui-component';
+import { CustomComponents } from '@/ui-component';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { Grid } from '@mui/material';

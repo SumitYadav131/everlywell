@@ -10,7 +10,7 @@ import { TabContext, TabPanel } from '@mui/lab';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import BusinessTwoToneIcon from '@mui/icons-material/BusinessTwoTone';
 import HttpsTwoToneIcon from '@mui/icons-material/HttpsTwoTone';
-import { CustomComponents } from '@/app/ui-component';
+import { CustomComponents } from '@/ui-component';
 
 export default function Profile() {
   const [value, setValue] = useState("1");

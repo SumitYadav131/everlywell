@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from '@/app/_lib/axios';
+import axios from '@/lib/axios';
 import { setFormDialogOpen } from '../features/dialog/formDialogSlice';
 import { setTaskLoader } from '../features/loader/loaderSlice';
 import { setNotification } from '../features/notification/notificationSlice';
@@ -7,7 +7,7 @@ import { setNotification } from '../features/notification/notificationSlice';
 export const createProductAction = createAsyncThunk('product/createProduct',async(data:any, thunkAPI)=>{
     const result = axios.post('api/products', data);
     result.then((response)=>{
-        thunkAPI.dispatch(setFormDialogOpen({isOpen: false, title: ""}));
+        thunkAPI.dispatch(setFormDialogOpen({isOpen: false, dialogTitle: ""}));
         thunkAPI.dispatch(setTaskLoader(false));
 
         thunkAPI.dispatch(setNotification({
@@ -30,7 +30,7 @@ export const createProductAction = createAsyncThunk('product/createProduct',asyn
 
 export const getProductsAction = createAsyncThunk(
     "product/getProducts",
-    async (data:any,thunkAPI) => {
+    async (_, thunkAPI) => {
         try {            
             const result = axios.get('api/products');
 
@@ -49,11 +49,11 @@ export const getProductsAction = createAsyncThunk(
     }
 );
 
-export const deleteProductsAction = createAsyncThunk(
+export const deleteProductAction = createAsyncThunk(
     "product/deleteProduct",
     async (data:any, thunkAPI) => {
-        try {            
-            const result = axios.delete('api/products/'+ data.id);
+        try {
+            const result = axios.delete('api/products/'+ data);
 
             result.then((res)=>{
                 thunkAPI.dispatch(setNotification({
@@ -69,8 +69,35 @@ export const deleteProductsAction = createAsyncThunk(
                 }))
             })
 
-            return result;
+            return data;
         } catch (err) {
         }
     }
 );
+
+export const updateProductAction = createAsyncThunk(
+    'product/updateProduct',
+    async(data:any, thunkAPI)=>{
+    const result = axios.patch('api/products', data);
+
+    result.then((response)=>{
+        thunkAPI.dispatch(setFormDialogOpen({isOpen: false, dialogTitle: ""}));
+        thunkAPI.dispatch(setTaskLoader(false));
+
+        thunkAPI.dispatch(setNotification({
+            isOpenSnackbar: true, 
+            messageText:'Product updated successfully.',
+            getSeverity: 'success'
+        }))
+    },(error)=>{
+        thunkAPI.dispatch(setTaskLoader(false));
+
+        // error notification
+        thunkAPI.dispatch(setNotification({
+            isOpenSnackbar: true, 
+            messageText:'Product could not be updated!', 
+            getSeverity: 'error'
+        }))
+    })
+    return result;
+});

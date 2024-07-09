@@ -1,5 +1,5 @@
 import DialogActions from '@mui/material/DialogActions';
-import { CustomComponents } from '@/app/ui-component';
+import { CustomComponents } from '@/ui-component';
 import styles from "./formDialog.module.css";
 
 export default function DialogActionButton(props:any) {

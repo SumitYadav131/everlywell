@@ -13,8 +13,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useAppDispatch, useAppSelector } from "@/app/_lib/store/hooks";
-import { loginUserAction } from "@/app/_lib/store/thunks/auth/authAction";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { loginUserAction } from "@/lib/store/thunks/auth/authAction";
 import { redirect } from 'next/navigation'
 
 

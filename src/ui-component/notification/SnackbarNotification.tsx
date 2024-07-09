@@ -1,8 +1,8 @@
 import React from 'react'
 import Alert from '@mui/material/Alert';
 import { Snackbar } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
-import { setNotification } from '@/app/_lib/store/features/notification/notificationSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { setNotification } from '@/lib/store/features/notification/notificationSlice';
 
 
 export default function SnackbarNotification(props: any) {

@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { Dialog, DialogTitle, Typography, Box } from '@mui/material';
 import { Close } from '@mui/icons-material';
-import { CustomComponents }  from '../../ui-component';
-import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
-import { setFormDialogOpen } from '@/app/_lib/store/features/dialog/formDialogSlice';
+import { CustomComponents }  from '..';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { setFormDialogOpen } from '@/lib/store/features/dialog/formDialogSlice';
 
 
 export default function CustomFormDialog(props: any) {

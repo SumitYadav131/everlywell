@@ -6,9 +6,9 @@ import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
-import { setOpen } from '@/app/_lib/store/features/drawer/drawerSlice';
-import ThemeToggleButton from '../../ui-component/ThemeToggleButton/ThemeToggleButton';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { setOpen } from '@/lib/store/features/drawer/drawerSlice';
+import ThemeToggleButton from '../../ThemeToggleButton/ThemeToggleButton';
 
 const drawerWidth = 240;
 

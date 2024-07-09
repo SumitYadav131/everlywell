@@ -14,11 +14,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 // import MailIcon from '@mui/icons-material/Mail';
-import { useAppDispatch, useAppSelector } from '@/app/_lib/store/hooks';
-import { setOpen } from '@/app/_lib/store/features/drawer/drawerSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { setOpen } from '@/lib/store/features/drawer/drawerSlice';
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
-import navLinks  from '@/app/_routes/navLinks';
+import navLinks  from '@/routes/navLinks';
 
 
 const drawerWidth = 240;

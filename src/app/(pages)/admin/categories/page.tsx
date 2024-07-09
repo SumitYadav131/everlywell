@@ -1,14 +1,14 @@
 "use client"
 
 import { useMemo, useState } from 'react';
-import { CustomComponents } from '@/app/ui-component';
+import { CustomComponents } from '@/ui-component';
 import { Box, Button, Card, IconButton, Tooltip } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { AddCircleRounded } from '@mui/icons-material';
 import AddCategory from './add/addCategory';
-import { useAppDispatch } from '@/app/_lib/store/hooks';
-import { setFormDialogOpen } from '@/app/_lib/store/features/dialog/formDialogSlice';
+import { useAppDispatch } from '@/lib/store/hooks';
+import { setFormDialogOpen } from '@/lib/store/features/dialog/formDialogSlice';
 
 
 export default function Categories() {
