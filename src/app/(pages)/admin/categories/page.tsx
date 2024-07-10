@@ -86,7 +86,6 @@ export default function Categories() {
                             setRecordForEdit={setRecordForEdit}
                             deleteFunction={deleteRecord}
                             setDialogContent={setDialogContent}
-                            setCRUD={setCRUD}
                             title="Update Group"
                         /> */}
                     </Box>
@@ -106,9 +105,8 @@ export default function Categories() {
                     variant="contained"
                     endIcon={< AddCircleRounded />}
                     onClick={() => {
-                        dispatch(setFormDialogOpen({ isOpen: true, title: "Add Category"}));
+                        dispatch(setFormDialogOpen({ isOpen: true, dialogTitle: "Add Category"}));
                         setRecordForEdit(null);
-                        // setCRUD(true);
                     }}
                     sx={{ borderRadius: '10px' }}>
                     Add
@@ -145,6 +143,7 @@ export default function Categories() {
                 </Box>
             </Grid> */}
         </ListPageCard>
+
         <CustomFormDialog
             size='sm'
             isFullWidth={true}>

@@ -1,23 +1,26 @@
 import React from 'react'
 import { Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material'
 import { CustomComponents } from '..';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { setConfirmDialogState } from '@/lib/store/features/dialog/confirmDialogSlice';
 
 
-export default function ConfirmDialog(props:any) {
-    const { dialogContent, setDialogContent } = props;
+export default function ConfirmDialog() {
+    const getStateData = useAppSelector(state => state.confirmDialog);
+    const dispatch = useAppDispatch();
 
     const CustomButton = CustomComponents.CustomButton;
 
     return (
-        <Dialog open={dialogContent.isOpen}>
+        <Dialog open={getStateData.isOpen}>
             <DialogTitle sx={{ display: 'flex', justifyContent: 'center' }}>
             </DialogTitle>
             <DialogContent>
                 <Typography variant='h6'>
-                    {dialogContent.title}
+                    {getStateData.title}
                 </Typography>
                 <Typography variant='subtitle2'>
-                    {dialogContent.subTitle}
+                    {getStateData.subTitle}
                 </Typography>
             </DialogContent>
             <DialogActions>
@@ -27,14 +30,21 @@ export default function ConfirmDialog(props:any) {
                     color="error"
                     size="medium"
                     variant="contained"
-                    onClick={() => (setDialogContent({ ...dialogContent, isOpen: false }), dialogContent.onConfirm())}
+                    onClick={() => (
+                        dispatch(
+                            setConfirmDialogState({ isOpenConfirmDialog: false, confirmDialogTitle: '', confirmDialogSubTitle: '' })
+                        ), 
+                        getStateData.onConfirm()
+                    )}
                 />
                 <CustomButton
                     sx={{ color: '#fff', background: '#000', borderRadius: '10px' }}
                     text="No"
                     size="medium"
                     variant="outlined"
-                    onClick={() => setDialogContent({ ...dialogContent, isOpen: false })}
+                    onClick={() =>
+                        dispatch(setConfirmDialogState({isOpenConfirmDialog: false, confirmDialogTitle: '', confirmDialogSubTitle: ''}))
+                    }
                 />
             </DialogActions>
         </Dialog>

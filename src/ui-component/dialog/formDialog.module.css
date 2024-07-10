@@ -6,6 +6,6 @@
     z-index: 1;
 }
 
-.dialogContentBorderBottom{
+.dialogContentBorderBottomNone{
     border-bottom: 0;
 }

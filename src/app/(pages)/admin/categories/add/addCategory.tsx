@@ -3,20 +3,24 @@ import { CustomComponents } from '@/ui-component';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { Grid } from '@mui/material';
+import { useAppDispatch } from '@/lib/store/hooks';
+import { setTaskLoader } from '@/lib/store/features/loader/loaderSlice';
+import { createCategoryAction } from '@/lib/store/thunks/categoryAction';
 
 const initialFormValues = {
     id: '',
     category_name: '',
     description: '',
-    slug: '',
     is_active: true,
 };
 
 export default function AddCategory(props:any) {
+    const dispatch = useAppDispatch();
     const CustomInput = CustomComponents.CustomInput;
-    const CustomButton = CustomComponents.CustomButton;
     const CustomForm = CustomComponents.CustomForm;
     const UseForm = CustomComponents.UseForm;
+    const DialogActionButton = CustomComponents.DialogActionButton;
+    const FormDialogContent = CustomComponents.FormDialogContent;
 
     // validation
     const validate = (fieldValues = values) => {
@@ -43,35 +47,30 @@ export default function AddCategory(props:any) {
 
     // insert
     const saveRecord = (e:any) => {
-        e.preventDefault();
-        // let group_id = values.id;
+        e.preventDefault();        
+
+        let _id = values.id;
 
         if (validate()) {
-        //     const formData = new FormData();
-        //     formData.append('id', group_id);
-        //     formData.append('name', values.group_name);
-        //     formData.append('is_active', 1);
-        //     formData.append('group_type', 'Manual');
-
-        //     if (group_id) {
-        //         const updateGroupApi = 'api/groups/'+group_id;
-        //         let data = {
-        //             "id":group_id,
-        //             "name":values.group_name,
-        //             "is_active":1,
-        //             "group_type":"Manual"
-        //         }
-        //         props.UpdateRecordCommonAction(updateGroupApi, data, CONFIRMED_UPDATE_GROUP, resetForm);
-        //     }else{
-        //         props.InsertRecordCommonAction(createGroupApi, formData, CONFIRMED_CREATE_GROUP, resetForm);
-        //     }
+            const formData = new FormData();
+            formData.append('id', _id);
+            formData.append('category_name', values.category_name);
+            formData.append('description', values.description);
+            formData.append('is_active', values.is_active);
+            
+            dispatch(setTaskLoader(true));
+            if (_id) {                
+                // dispatch(createCategoryAction(formData));
+            }else{
+                dispatch(createCategoryAction(formData));
+            }
         }
     }
 
     return (
         <>
             <CustomForm onSubmit={saveRecord} id="CATEGORY_FORM">
-                <DialogContent dividers>
+                <FormDialogContent>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <CustomInput
@@ -97,15 +96,10 @@ export default function AddCategory(props:any) {
                             />
                         </Grid>
                     </Grid>
-                </DialogContent>
-                <DialogActions>
-                    <CustomButton
-                        variant="contained"
-                        color="primary"
-                        text={buttonText}
-                        type="submit"
-                    />
-                </DialogActions>
+                </FormDialogContent>
+                <DialogActionButton
+                    buttonText={buttonText}
+                />
             </CustomForm>
         </>
     )

@@ -6,7 +6,7 @@ import { setNotification } from '@/lib/store/features/notification/notificationS
 
 
 export default function SnackbarNotification(props: any) {
-    const notificationData = useAppSelector((state)=>state.notificationSlice);
+    const notificationData = useAppSelector((state)=>state.notification);
     const dispatch = useAppDispatch();
     
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string)=>{

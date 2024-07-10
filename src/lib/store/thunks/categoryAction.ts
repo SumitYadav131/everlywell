@@ -4,15 +4,18 @@ import { setFormDialogOpen } from '../features/dialog/formDialogSlice';
 import { setTaskLoader } from '../features/loader/loaderSlice';
 import { setNotification } from '../features/notification/notificationSlice';
 
-export const createProductAction = createAsyncThunk('product/createProduct',async(data:any, thunkAPI)=>{
-    const result = axios.post('api/products', data);
+export const createCategoryAction = createAsyncThunk(
+    'category/createCategory',
+    async(data:any, thunkAPI)=>{
+    const result = axios.post('api/categories', data);
+    
     result.then((response)=>{
         thunkAPI.dispatch(setFormDialogOpen({isOpen: false, dialogTitle: ""}));
         thunkAPI.dispatch(setTaskLoader(false));
 
         thunkAPI.dispatch(setNotification({
             isOpenSnackbar: true, 
-            messageText:'Product saved successfully.',
+            messageText:'Category saved successfully.',
             getSeverity: 'success'
         }))
     },(error)=>{
@@ -21,14 +24,14 @@ export const createProductAction = createAsyncThunk('product/createProduct',asyn
         // error notification
         thunkAPI.dispatch(setNotification({
             isOpenSnackbar: true, 
-            messageText:'Product could not be saved!', 
+            messageText:'Category could not be saved!', 
             getSeverity: 'error'
         }))
     })
     return result;
 });
 
-export const getProductsAction = createAsyncThunk(
+export const getCategoriesAction = createAsyncThunk(
     "product/getProducts",
     async (_, thunkAPI) => {
         try {            
@@ -49,7 +52,7 @@ export const getProductsAction = createAsyncThunk(
     }
 );
 
-export const deleteProductAction = createAsyncThunk(
+export const deleteCategoryAction = createAsyncThunk(
     "product/deleteProduct",
     async (data:any, thunkAPI) => {
         try {
@@ -75,7 +78,7 @@ export const deleteProductAction = createAsyncThunk(
     }
 );
 
-export const updateProductAction = createAsyncThunk(
+export const updateCategoryAction = createAsyncThunk(
     'product/updateProduct',
     async(data:any, thunkAPI)=>{
     const id = data.get("id");

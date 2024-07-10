@@ -1,18 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface LoaderState {
-    taskLoader: boolean;
+  taskLoader: boolean;
 }
 
 const initialState: LoaderState = {
-    taskLoader: false,
+  taskLoader: false,
 }
 
 export const loaderSlice = createSlice({
   name: 'loader',
   initialState,
   reducers: {
-    setTaskLoader:(state, action)=>{
+    setTaskLoader: (state, action)=>{
       state.taskLoader = action.payload;
     }
   },

@@ -5,6 +5,8 @@ import formDialogReducer from "./features/dialog/formDialogSlice";
 import productReducer from './features/product/productSlice';
 import loaderReducer from './features/loader/loaderSlice';
 import notificationReducer from './features/notification/notificationSlice';
+import confirmDialogReducer from './features/dialog/confirmDialogSlice';
+import categoryReducer from './features/category/categorySlice';
 
 
 export const makeStore = () => {
@@ -13,9 +15,11 @@ export const makeStore = () => {
       auth: authReducer,
       drawer: drawerReducer,
       formDialog: formDialogReducer,
+      confirmDialog: confirmDialogReducer,
       product: productReducer,
       loader: loaderReducer,
-      notificationSlice: notificationReducer,
+      notification: notificationReducer,
+      category: categoryReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

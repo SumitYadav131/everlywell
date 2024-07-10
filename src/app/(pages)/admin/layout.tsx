@@ -8,6 +8,7 @@ import { useAppSelector } from "@/lib/store/hooks";
 import AdminNavBar from "@/ui-component/layout/navbar/adminNavBar";
 import Sidebar from "@/ui-component/layout/sidebar/sidebar";
 import Footer from "@/ui-component/layout/footer/footer";
+import { CustomComponents } from "@/ui-component";
 
 const drawerWidth = 240;
 
@@ -42,6 +43,9 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
 }));
 
 const Layout = ({children}:any)=>{
+  const ConfirmDialog = CustomComponents.ConfirmDialog;
+  const SnackbarNotification = CustomComponents.SnackbarNotification;
+
   const [mode, setMode] = useState<'light' | 'dark'>('light');
 
   const colorMode = useMemo(
@@ -74,16 +78,20 @@ const Layout = ({children}:any)=>{
   return(
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={mode === 'dark' ? darkThemeChosen : lightThemeChosen}>
-        <Box sx={{ display: 'flex' }}>
+        {/* <Box sx={{ display: 'flex' }}> */}
           <CssBaseline />
           <AdminNavBar ColorModeContext={ColorModeContext}/>
           <Sidebar/>
-          <Main open={open}>
-            <DrawerHeader/>
-            {children}
-            <Footer/>
-          </Main>
-        </Box>
+          <Box sx={{paddingLeft: '240px'}}>
+            <Main open={open}>
+              <DrawerHeader/>
+                {children}
+                <ConfirmDialog/>
+                <SnackbarNotification/>
+              <Footer/>
+            </Main>
+          </Box>
+        {/* </Box> */}
       </ThemeProvider>
     </ColorModeContext.Provider>
   )

@@ -20,15 +20,11 @@ export default function Products() {
     const CustomFormDialog = CustomComponents.CustomFormDialog;
     const Breadcrumb = CustomComponents.Breadcrumb;
     const ListPageCard = CustomComponents.ListPageCard;
-    const SnackbarNotification = CustomComponents.SnackbarNotification;
     const CustomLinearLoader = CustomComponents.CustomLinearLoader;
     const DataGridActions = CustomComponents.DataGridActions;
-    const ConfirmDialog = CustomComponents.ConfirmDialog;
 
     const [recordForEdit, setRecordForEdit] = useState(null);
-    const [is_crud, setCRUD] = useState(true);
     const [allProducts, setProducts] = useState(Array<any>);
-    const [dialogContent, setDialogContent] = useState({ isOpen: false, title: '', subTitle: '' });
 
     useEffect(() => {
         dispatch(getProductsAction());
@@ -81,8 +77,6 @@ export default function Products() {
                                 params={params}
                                 setRecordForEdit={setRecordForEdit}
                                 deleteFunction={deleteRecord}
-                                setDialogContent={setDialogContent}
-                                setCRUD={setCRUD}
                                 dialogTitle= "Update Product"
                             />
                         </>
@@ -111,7 +105,6 @@ export default function Products() {
                                 onClick={() => {
                                     dispatch(setFormDialogOpen({ isOpen: true, dialogTitle: "Add Product"}));
                                     setRecordForEdit(null);
-                                    setCRUD(true);
                                 }}
                                 sx={{ borderRadius: '10px' }}>
                                 Add
@@ -124,8 +117,8 @@ export default function Products() {
                             justifyContent="center"
                             alignItems="center"
                         >
-                            <Box sx={{ height: 400 }}
-                                maxWidth={{xs:280, sm:400, md:800, lg:1200}}
+                            <Box sx={{ height: 400, width:'100%' }}
+                                // maxWidth={{xs:280, sm:400, md:800, lg:1200}}
                             >
                                 {
                                     allProducts.length > 0 &&
@@ -155,19 +148,12 @@ export default function Products() {
                         </Grid>
                     </ListPageCard>
 
-                    <ConfirmDialog
-                        dialogContent={dialogContent}
-                        setDialogContent={setDialogContent}
-                    ></ConfirmDialog>
-
                     <CustomFormDialog
                         size='md'
                         isFullWidth={true}>
                         <AddProduct
                         recordForEdit={recordForEdit}/>
                     </CustomFormDialog>
-
-                    <SnackbarNotification/>
                 </>
             }  
         </>

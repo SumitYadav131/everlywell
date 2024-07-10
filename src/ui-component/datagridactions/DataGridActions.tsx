@@ -6,6 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useState } from 'react';
 import { useAppDispatch } from '@/lib/store/hooks';
 import { setFormDialogOpen } from '@/lib/store/features/dialog/formDialogSlice';
+import { setConfirmDialogState } from '@/lib/store/features/dialog/confirmDialogSlice';
 
 const ITEM_HEIGHT = 48;
 
@@ -14,14 +15,10 @@ export default function DataGridActions(props: any) {
 
     const {
         params,
-        setDialogContent,
         setRecordForEdit,
         deleteFunction,
-        setCRUD,
         dialogTitle="",
     } = props;
-    
-    const isSetCRUD = (setCRUD)? true: false;
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -36,20 +33,16 @@ export default function DataGridActions(props: any) {
     const editRecord = ()=>{
         dispatch(setFormDialogOpen({ isOpen: true, dialogTitle: dialogTitle}));
         setRecordForEdit(params.row);
-        if(isSetCRUD){
-            setCRUD(true);
-        }
-        // 
         setAnchorEl(null);
     }
 
     const deleteRecord = () =>{
-        setDialogContent({
-            isOpen: true,
-            title: 'Are you sure, you want to delete ?',
-            subTitle: 'You will not be able to retrive it.',
+        dispatch(setConfirmDialogState({
+            isOpenConfirmDialog: true, 
+            confirmDialogTitle: 'Are you sure, you want to delete ?', 
+            confirmDialogSubTitle: 'You will not be able to retrive it.',
             onConfirm: () => { deleteFunction(params.row._id) }
-        })
+        }))
         // 
         setAnchorEl(null);
     }

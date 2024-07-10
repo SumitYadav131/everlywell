@@ -111,25 +111,10 @@ export default function AddProduct(props:any) {
             formData.append('is_active', values.is_active);
             
             dispatch(setTaskLoader(true));
-            if (_id) {
-        //         const updateGroupApi = 'api/groups/'+group_id;
-                // let data = {
-                //     "product_name":"Food Sensitivity Test2",
-                //     "description":"This at-home lab test moeasures your body’s immune response to 96 common foods to help guide your food selection in a two-part elimination diet1.",
-                //     "categories":["Nutritional", "Health"],
-                //     "barcode":"45645465465465",
-                //     "sku":"dfdsa54545",
-                //     "price":20000,
-                //     "discount":10,
-                //     "brand":"dfsadsf",
-                //     "is_active":true
-                // }
-                
+            if (_id) {                
                 dispatch(updateProductAction(formData));
-                // props.UpdateRecordCommonAction(updateGroupApi, data, CONFIRMED_UPDATE_GROUP, resetForm);
             }else{
                 dispatch(createProductAction(formData));
-                // props.InsertRecordCommonAction(createGroupApi, formData, CONFIRMED_CREATE_GROUP, resetForm);
             }
         }
     }
@@ -148,7 +133,7 @@ export default function AddProduct(props:any) {
                 // product_image: props.recordForEdit,
                 sku: props.recordForEdit.sku,
                 tags: props.recordForEdit.tags,
-                // is_active: props.recordForEdit,
+                is_active: props.recordForEdit.is_active,
             })
             setButtonText('Update');
         }else{
