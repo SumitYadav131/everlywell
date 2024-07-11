@@ -27,6 +27,9 @@ export default function Products() {
     const [allProducts, setProducts] = useState(Array<any>);
 
     useEffect(() => {
+        if (getallProducts.length > 0){
+            return;
+        }
         dispatch(getProductsAction());
     }, []);
 

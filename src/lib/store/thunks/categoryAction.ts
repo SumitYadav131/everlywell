@@ -1,51 +1,33 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from '@/lib/axios';
-import { setFormDialogOpen } from '../features/dialog/formDialogSlice';
-import { setTaskLoader } from '../features/loader/loaderSlice';
-import { setNotification } from '../features/notification/notificationSlice';
+import { 
+    creactPostRequest,
+    updatePutRequest,
+    getDataRequest,
+    deleteRecordRequest
+} from './commonAction';
+import { 
+    getCreateResponse, 
+    getDeletedDataResponse, 
+    getDataResponse, 
+    getUpdatedRecordResponse
+} from './getPromise';
+
 
 export const createCategoryAction = createAsyncThunk(
     'category/createCategory',
-    async(data:any, thunkAPI)=>{
-    const result = axios.post('api/categories', data);
+    async(data: FormData, thunkAPI)=>{
+    const result = creactPostRequest('api/categories', data);
     
-    result.then((response)=>{
-        thunkAPI.dispatch(setFormDialogOpen({isOpen: false, dialogTitle: ""}));
-        thunkAPI.dispatch(setTaskLoader(false));
-
-        thunkAPI.dispatch(setNotification({
-            isOpenSnackbar: true, 
-            messageText:'Category saved successfully.',
-            getSeverity: 'success'
-        }))
-    },(error)=>{
-        thunkAPI.dispatch(setTaskLoader(false));
-
-        // error notification
-        thunkAPI.dispatch(setNotification({
-            isOpenSnackbar: true, 
-            messageText:'Category could not be saved!', 
-            getSeverity: 'error'
-        }))
-    })
+    getCreateResponse(result, thunkAPI);
     return result;
 });
 
 export const getCategoriesAction = createAsyncThunk(
-    "product/getProducts",
+    "category/getCategories",
     async (_, thunkAPI) => {
-        try {            
-            const result = axios.get('api/products');
-
-            result.then((res)=>{
-            },(err)=>{
-                thunkAPI.dispatch(setNotification({
-                    isOpenSnackbar: true, 
-                    messageText: err.message,
-                    getSeverity: 'error'
-                }))
-            })
-
+        try {
+            const result = getDataRequest('api/categories');
+            getDataResponse(result, thunkAPI);
             return result;
         } catch (err) {
         }
@@ -53,56 +35,22 @@ export const getCategoriesAction = createAsyncThunk(
 );
 
 export const deleteCategoryAction = createAsyncThunk(
-    "product/deleteProduct",
-    async (data:any, thunkAPI) => {
+    "category/deleteCategory",
+    async (id: string, thunkAPI) => {
         try {
-            const result = axios.delete('api/products/'+ data);
-
-            result.then((res)=>{
-                thunkAPI.dispatch(setNotification({
-                    isOpenSnackbar: true, 
-                    messageText:'Product deleted successfully.',
-                    getSeverity: 'success'
-                }))
-            },(err)=>{
-                thunkAPI.dispatch(setNotification({
-                    isOpenSnackbar: true, 
-                    messageText: err.message,
-                    getSeverity: 'error'
-                }))
-            })
-
-            return data;
+            const result = deleteRecordRequest('api/categories/'+ id);
+            getDeletedDataResponse(result, thunkAPI);
+            return id;
         } catch (err) {
         }
     }
 );
 
 export const updateCategoryAction = createAsyncThunk(
-    'product/updateProduct',
-    async(data:any, thunkAPI)=>{
+    'category/updateCategory',
+    async(data: FormData, thunkAPI)=>{
     const id = data.get("id");
-
-    const result = axios.patch('api/products/'+id, data);
-
-    result.then((response)=>{
-        thunkAPI.dispatch(setFormDialogOpen({isOpen: false, dialogTitle: ""}));
-        thunkAPI.dispatch(setTaskLoader(false));
-
-        thunkAPI.dispatch(setNotification({
-            isOpenSnackbar: true, 
-            messageText:'Product updated successfully.',
-            getSeverity: 'success'
-        }))
-    },(error)=>{
-        thunkAPI.dispatch(setTaskLoader(false));
-
-        // error notification
-        thunkAPI.dispatch(setNotification({
-            isOpenSnackbar: true, 
-            messageText:'Product could not be updated!', 
-            getSeverity: 'error'
-        }))
-    })
+    const result = updatePutRequest('api/categories/'+id, data);
+    getUpdatedRecordResponse(result, thunkAPI);
     return result;
 });

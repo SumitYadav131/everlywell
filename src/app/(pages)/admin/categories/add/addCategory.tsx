@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CustomComponents } from '@/ui-component';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { Grid } from '@mui/material';
 import { useAppDispatch } from '@/lib/store/hooks';
 import { setTaskLoader } from '@/lib/store/features/loader/loaderSlice';
-import { createCategoryAction } from '@/lib/store/thunks/categoryAction';
+import { createCategoryAction, updateCategoryAction } from '@/lib/store/thunks/categoryAction';
 
 const initialFormValues = {
     id: '',
@@ -60,12 +60,26 @@ export default function AddCategory(props:any) {
             
             dispatch(setTaskLoader(true));
             if (_id) {                
-                // dispatch(createCategoryAction(formData));
+                dispatch(updateCategoryAction(formData));
             }else{
                 dispatch(createCategoryAction(formData));
             }
         }
     }
+
+    useEffect(() => {
+        if (props.recordForEdit) {            
+            setValues({
+                id: props.recordForEdit._id,
+                category_name: props.recordForEdit.category_name,
+                description: props.recordForEdit.description,
+                is_active: props.recordForEdit.is_active,
+            })
+            setButtonText('Update');
+        }else{
+            setButtonText('Submit');
+        }
+    }, [props.recordForEdit]);
 
     return (
         <>

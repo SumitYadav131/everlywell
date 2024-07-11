@@ -1,129 +1,113 @@
 "use client"
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { CustomComponents } from '@/ui-component';
 import { Box, Button, Card, IconButton, Tooltip } from '@mui/material';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { AddCircleRounded } from '@mui/icons-material';
 import AddCategory from './add/addCategory';
-import { useAppDispatch } from '@/lib/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { setFormDialogOpen } from '@/lib/store/features/dialog/formDialogSlice';
+import { deleteCategoryAction, getCategoriesAction } from '@/lib/store/thunks/categoryAction';
 
 
 export default function Categories() {
-  const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
+    const getStateCategories = useAppSelector((state)=> state.category.categories);
 
-  const CustomFormDialog = CustomComponents.CustomFormDialog;
-  const Breadcrumb = CustomComponents.Breadcrumb;
-  const ListPageCard = CustomComponents.ListPageCard;
+    const CustomFormDialog = CustomComponents.CustomFormDialog;
+    const Breadcrumb = CustomComponents.Breadcrumb;
+    const ListPageCard = CustomComponents.ListPageCard;
+    const StatusChip = CustomComponents.StatusChip;
+    const DataGridActions = CustomComponents.DataGridActions;
 
-  const [recordForEdit, setRecordForEdit] = useState(null);
+    const [recordForEdit, setRecordForEdit] = useState(null);
 
-  const columns = useMemo(
-    () => [
-        {
-            field: 'id',
-            headerName: 'ID',
-            width: 90
-        },
-        {
-            field: 'name',
-            headerName: 'Group',
-            width: 250,
-            editable: true,
-        },
-        {
-            field: 'group_type',
-            headerName: 'Group Type',
-            sortable: false,
-            width: 150,
-            editable: false,
-        },
-        {
-            field: 'members',
-            headerName: 'Members',
-            sortable: false,
-            width: 150,
-            renderCell: (params: any) => {
-                return (
-                    <Box>{params.row.employees.length}</Box>
-                )
-            }
-        },
-        {
-            field: 'manage_members_action',
-            headerName: 'Manage Members',
-            type: 'actions',
-            sortable: false,
-            flex: 1,
-            renderCell: (params: any) => {
-                return (
-                    <Tooltip title='Manage Members'>
-                        <IconButton
-                            onClick={
-                                ()=>{
-                                    // manageMembersAction(params);
-                                }
-                            }>
-                            <GroupAddIcon />
-                        </IconButton>
-                    </Tooltip>
-                )
-            }
-        },
-        {
-            field: 'actions',
-            headerName: 'Actions',
-            type: 'actions',
-            sortable: false,
-            flex: 1,
-            renderCell: (params) => {
-                return (
-                    <Box>
-                        {/* <DataGridActions
-                            params={params}
-                            setRecordForEdit={setRecordForEdit}
-                            deleteFunction={deleteRecord}
-                            setDialogContent={setDialogContent}
-                            title="Update Group"
-                        /> */}
-                    </Box>
-                )
-            }
-        },
-    ],
-    []
-  )
+    useEffect(() => {
+        if (getStateCategories.length > 0){
+            return;
+        }
+        dispatch(getCategoriesAction());
+    }, []);
 
-  return (
-    <>
-        <Breadcrumb pageName="Categories"/>
-        <ListPageCard>
-            <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                <Button
-                    variant="contained"
-                    endIcon={< AddCircleRounded />}
-                    onClick={() => {
-                        dispatch(setFormDialogOpen({ isOpen: true, dialogTitle: "Add Category"}));
-                        setRecordForEdit(null);
-                    }}
-                    sx={{ borderRadius: '10px' }}>
-                    Add
-                </Button>
-            </Box>
+    // delete
+    const deleteRecord = (id: string) => {
+        dispatch(deleteCategoryAction(id));
+    }
 
-            {/* <Grid container spacing={1}>
-                <Box style={{ width: '100%' }}>
+    const columns: GridColDef<(typeof getStateCategories)[number]>[]= useMemo(
+        () => [
+            {
+                field: 'category_name',
+                headerName: 'Category Name',
+                width: 400,
+            },
+            {
+                field: 'description',
+                headerName: 'Description',
+                width: 400,
+                sortable: false
+            },
+            {
+                field: 'is_active',
+                headerName: 'Status',
+                width: 150,
+                renderCell: (params: any) => {
+                    return (
+                        <StatusChip params={params}/>
+                    )
+                }
+            },
+            {
+                field: 'actions',
+                headerName: 'Actions',
+                type: 'actions',
+                sortable: false,
+                width: 150,
+                renderCell: (params: any) => {
+                    return (
+                        <Box>
+                             <DataGridActions
+                                params={params}
+                                setRecordForEdit={setRecordForEdit}
+                                deleteFunction={deleteRecord}
+                                dialogTitle= "Update Category"
+                            />
+                        </Box>
+                    )
+                }
+            },
+        ],
+        []
+    )
+
+    return (
+        <>
+            <Breadcrumb pageName="Categories"/>
+            <ListPageCard>
+                <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <Button
+                        variant="contained"
+                        endIcon={< AddCircleRounded />}
+                        onClick={() => {
+                            dispatch(setFormDialogOpen({ isOpen: true, dialogTitle: "Add Category"}));
+                            setRecordForEdit(null);
+                        }}
+                        sx={{ borderRadius: '10px' }}>
+                        Add
+                    </Button>
+                </Box>
+
+                <Box style={{ height: 400, width: '100%' }}>
                     {
-                        props.groups.length > 0 &&
+                        getStateCategories.length > 0 &&
                         <DataGrid
                             autoHeight
                             columns={columns}
-                            rows={props.groups}
-                            sx={{ borderColor: 'transparent' }}
+                            rows={getStateCategories}
                             slots={{ toolbar: GridToolbar }}
-
+                            getRowId={(row) => row._id}
                             slotProps={{
                                 toolbar: {
                                     showQuickFilter: true,
@@ -137,19 +121,18 @@ export default function Categories() {
                                     },
                                 },
                             }}
-                            pageSizeOptions={[5]}
+                            pageSizeOptions={[5, 10, 20]}
                             disableRowSelectionOnClick />
                     }
                 </Box>
-            </Grid> */}
-        </ListPageCard>
+            </ListPageCard>
 
-        <CustomFormDialog
-            size='sm'
-            isFullWidth={true}>
-            <AddCategory
-            recordForEdit={recordForEdit}/>
-        </CustomFormDialog>
-    </>
-  )
+            <CustomFormDialog
+                size='sm'
+                isFullWidth={true}>
+                <AddCategory
+                recordForEdit={recordForEdit}/>
+            </CustomFormDialog>
+        </>
+    )
 }

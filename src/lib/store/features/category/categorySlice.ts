@@ -1,13 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { 
-  createCategoryAction, 
+  createCategoryAction,
+  deleteCategoryAction,
+  getCategoriesAction,
+  updateCategoryAction, 
 //   deleteProductAction, 
 //   getProductsAction, 
 //   updateProductAction 
 } from '../../thunks/categoryAction';
 
 export interface CategoryState {
-  categories: any;
+  categories: Array<any>;
 //   productsDataLoading: boolean;
 }
 
@@ -22,41 +25,26 @@ export const categorySlice = createSlice({
   reducers: {},
   extraReducers:(builder)=>{
     builder
-    .addCase(createCategoryAction.pending, (state, action)=>{})
     .addCase(createCategoryAction.fulfilled,(state, {payload})=>{
       let getInsertedCategory = (payload.data.data.category);
       state.categories.push(getInsertedCategory);
     })
-    .addCase(createCategoryAction.rejected,(state)=>{})
-    // ---------- get products
-    // .addCase(getProductsAction.pending, (state, action)=>{
-    //   state.productsDataLoading = true;
-    // })
-    // .addCase(getProductsAction.fulfilled, (state, {payload})=>{
-    //   state.productsDataLoading = false;
-    //   const productsData = payload?.data.data.products;
-    //   state.products = productsData;
-    // })
-    // .addCase(getProductsAction.rejected, (state, action)=>{
-    //   state.productsDataLoading = false;
-    // })
+    // ---------- get
+    .addCase(getCategoriesAction.fulfilled, (state, {payload})=>{
+      const categories = payload?.data.data.categories;
+      state.categories = categories;
+    })
     // --------- delete
-    // .addCase(deleteProductAction.pending, (state, action)=>{
-    // })
-    // .addCase(deleteProductAction.fulfilled, (state, {payload})=>{
-    //   state.products = state.products.filter((product:any) => product._id !== payload);
-    // })
-    // .addCase(deleteProductAction.rejected, (state, action)=>{
-    // })
+    .addCase(deleteCategoryAction.fulfilled, (state, {payload})=>{
+      state.categories = state.categories.filter((category: any) => category._id !== payload);
+    })
     // ---------- update
-    // .addCase(updateProductAction.pending, (state, action)=>{})
-    // .addCase(updateProductAction.fulfilled,(state, {payload})=>{
-    //   let getUpdatedProduct = (payload.data.data.product);
-    //   const products = state.products;
-    //   const getIndex = products.findIndex((product:any) => product._id === getUpdatedProduct._id);      
-    //   products[getIndex] = getUpdatedProduct;
-    // })
-    // .addCase(updateProductAction.rejected,(state)=>{})
+    .addCase(updateCategoryAction.fulfilled,(state, {payload})=>{
+      let getUpdatedCategory = (payload.data.data.category);
+      const categories = state.categories;
+      const getIndex = categories.findIndex((category: any) => category._id === getUpdatedCategory._id);      
+      categories[getIndex] = getUpdatedCategory;
+    })
   }
 })
 
