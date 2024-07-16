@@ -26,12 +26,13 @@ export default function Products() {
     const [recordForEdit, setRecordForEdit] = useState(null);
     const [allProducts, setProducts] = useState(Array<any>);
 
+    // products
     useEffect(() => {
         if (getallProducts.length > 0){
             return;
         }
         dispatch(getProductsAction());
-    }, []);
+    }, []);    
 
     useEffect(() => {
         if (Array.isArray(getallProducts)) {
@@ -88,7 +89,7 @@ export default function Products() {
             },
         ],
         []
-    )
+    )    
 
     return (
         <>
@@ -120,7 +121,7 @@ export default function Products() {
                             justifyContent="center"
                             alignItems="center"
                         >
-                            <Box sx={{ height: 400, width:'100%' }}
+                            <Box sx={{ height: 400, width: '100%' }}
                                 // maxWidth={{xs:280, sm:400, md:800, lg:1200}}
                             >
                                 {

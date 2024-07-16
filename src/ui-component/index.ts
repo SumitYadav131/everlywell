@@ -8,7 +8,7 @@ import DialogActionButton from "./dialog/DialogActionButton";
 import CustomCheckBox from "./controls/checkbox/CustomCheckBox";
 import { CustomInput } from "./controls/input/CustomInput";
 import CustomRadioGroup from "./controls/radio/CustomRadioGroup";
-import CustomSelect from "./controls/select/CustomSelect";
+import CustomSingleSelect from "./controls/select/CustomSingleSelect";
 import MultiSelect from "./controls/select/MultiSelect";
 import CustomFormDialog from "./dialog/CustomFormDialog";
 import CustomForm from "./forms/CustomForm";
@@ -24,7 +24,7 @@ import InputFile from "./controls/input/InputFile";
 export const CustomComponents = {
     UseForm,
     CustomForm,
-    CustomSelect,
+    CustomSingleSelect,
     MultiSelect,
     CustomRadioGroup,
     CustomInput,

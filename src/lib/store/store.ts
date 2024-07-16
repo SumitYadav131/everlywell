@@ -7,6 +7,7 @@ import loaderReducer from './features/loader/loaderSlice';
 import notificationReducer from './features/notification/notificationSlice';
 import confirmDialogReducer from './features/dialog/confirmDialogSlice';
 import categoryReducer from './features/category/categorySlice';
+import tagReducer from './features/tagSlice';
 
 
 export const makeStore = () => {
@@ -20,6 +21,7 @@ export const makeStore = () => {
       loader: loaderReducer,
       notification: notificationReducer,
       category: categoryReducer,
+      tag: tagReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

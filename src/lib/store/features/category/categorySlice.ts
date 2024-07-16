@@ -3,20 +3,15 @@ import {
   createCategoryAction,
   deleteCategoryAction,
   getCategoriesAction,
-  updateCategoryAction, 
-//   deleteProductAction, 
-//   getProductsAction, 
-//   updateProductAction 
+  updateCategoryAction,
 } from '../../thunks/categoryAction';
 
 export interface CategoryState {
   categories: Array<any>;
-//   productsDataLoading: boolean;
 }
 
 const initialState: CategoryState = {
-    categories: [],
-//   productsDataLoading: false,
+  categories: [],
 }
 
 export const categorySlice = createSlice({
@@ -43,7 +38,7 @@ export const categorySlice = createSlice({
       let getUpdatedCategory = (payload.data.data.category);
       const categories = state.categories;
       const getIndex = categories.findIndex((category: any) => category._id === getUpdatedCategory._id);      
-      categories[getIndex] = getUpdatedCategory;
+      categories[getIndex] = getUpdatedCategory;      
     })
   }
 })

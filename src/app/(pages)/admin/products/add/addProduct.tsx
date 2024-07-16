@@ -5,6 +5,9 @@ import MultiSelect from '@/ui-component/controls/select/MultiSelect';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { createProductAction, updateProductAction } from '@/lib/store/thunks/productAction';
 import { setTaskLoader } from '@/lib/store/features/loader/loaderSlice';
+import { getCategoriesAction } from '@/lib/store/thunks/categoryAction';
+import { getTagsAction } from "@/lib/store/thunks/tagAction";
+import MenuItem from '@mui/material/MenuItem';
 
 
 const initialFormValues = {
@@ -24,19 +27,27 @@ const initialFormValues = {
 
 export default function AddProduct(props:any) {
     const dispatch = useAppDispatch();
+    const stateCategories = useAppSelector((state)=> state.category.categories);
+    const stateTags = useAppSelector((state)=> state.tag.tags);
 
     const CustomInput = CustomComponents.CustomInput;
     const CustomForm = CustomComponents.CustomForm;
     const UseForm = CustomComponents.UseForm;
 
-    const names = [
-        {id:1, name:'Oliver Hansen'},
-        {id:2, name:'Van Henry'},
-        {id:3, name:'April Tucker'},
-        {id:4, name:'Ralph Hubbard'},
-        {id:5, name:'Omar Alexander'},
-        {id:6, name:'Carlos Abbott'},
-    ];
+    // categories
+    useEffect(() => {
+        if (stateCategories.length < 1) {
+          dispatch(getCategoriesAction());
+        }
+    }, [])
+
+    // tags
+    useEffect(() => {
+        if (stateTags.length < 1) {
+            dispatch(getTagsAction());
+        }
+    }, [])
+    
 
     // validation
     const validate = (fieldValues = values) => {
@@ -74,10 +85,6 @@ export default function AddProduct(props:any) {
             temp.brand = fieldValues.brand ? "" : "brand is required!"
         }
 
-        // if ('tags' in fieldValues) {
-        //     temp.tags = fieldValues.tags ? "" : "Tag is required!"
-        // }
-
         setErrors({
             ...temp
         })
@@ -107,7 +114,7 @@ export default function AddProduct(props:any) {
             formData.append('price', values.price);
             formData.append('product_image', values.product_image);
             formData.append('sku', values.sku);
-            formData.append('tags', values.tags);
+            formData.append('tags', JSON.stringify(values.tags));
             formData.append('is_active', values.is_active);
             
             dispatch(setTaskLoader(true));
@@ -130,7 +137,6 @@ export default function AddProduct(props:any) {
                 categories: props.recordForEdit.categories,
                 discount: props.recordForEdit.discount,
                 price: props.recordForEdit.price,
-                // product_image: props.recordForEdit,
                 sku: props.recordForEdit.sku,
                 tags: props.recordForEdit.tags,
                 is_active: props.recordForEdit.is_active,
@@ -176,9 +182,17 @@ export default function AddProduct(props:any) {
                                 value={values.categories}
                                 error={errors.categories}
                                 onChange={handleInput}
-                                options={names}
                                 variant="outlined"
-                            />
+                            >
+                                {stateCategories.map((category: {_id:string, category_name:string}) => (
+                                    <MenuItem
+                                    key={category._id}
+                                    value={category.category_name}
+                                    >
+                                        {category.category_name}
+                                    </MenuItem>
+                                ))}
+                            </MultiSelect>
                         </Grid>
                         <Grid item xs={6}>
                             <CustomInput
@@ -231,14 +245,32 @@ export default function AddProduct(props:any) {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <CustomInput
+                            {/* <CustomInput
                                 label="Tags"
                                 name="tags"
                                 value={values.tags}
                                 onChange={handleInput}
-                                // error={errors.tags}
                                 fullWidth
-                            />
+                            /> */}
+                            <MultiSelect
+                                id="tags"
+                                name="tags"
+                                label="Select Tags"
+                                label_id="tags"
+                                value={values.tags}
+                                error={errors.tags}
+                                onChange={handleInput}
+                                variant="outlined"
+                            >
+                                {stateTags.map((tag: {_id:string, name:string}) => (
+                                    <MenuItem
+                                    key={tag._id}
+                                    value={tag.name}
+                                    >
+                                        {tag.name}
+                                    </MenuItem>
+                                ))}
+                            </MultiSelect>
                         </Grid>
                         {/* product_image
                         is_active */}

@@ -2,7 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
@@ -16,8 +15,8 @@ type propsType = {
   value: Array<object>,
   error: string,
   onChange: any,
-  options: Array<object>,
-  variant: any
+  variant: any,
+  children: any,
 }
 
 export default function MultiSelect(props: propsType) {
@@ -28,9 +27,9 @@ export default function MultiSelect(props: propsType) {
     id, 
     value, 
     error=null, 
-    onChange, 
-    options, 
-    variant
+    onChange,
+    variant,
+    children
   } = props;
 
   return (
@@ -57,14 +56,7 @@ export default function MultiSelect(props: propsType) {
             </Box>
           )}
         >
-          {options.map((item:any) => (
-            <MenuItem
-              key={item.id}
-              value={item.name}
-            >
-              {item.name}
-            </MenuItem>
-          ))}
+          { children }
         </Select>
         {error && <FormHelperText>{error}</FormHelperText>}
       </FormControl>

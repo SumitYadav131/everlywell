@@ -1,20 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CustomComponents } from '@/ui-component';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import { Grid } from '@mui/material';
 import { useAppDispatch } from '@/lib/store/hooks';
 import { setTaskLoader } from '@/lib/store/features/loader/loaderSlice';
-import { createCategoryAction, updateCategoryAction } from '@/lib/store/thunks/categoryAction';
+import { createTagAction, updateTagAction } from '@/lib/store/thunks/tagAction';
 
 const initialFormValues = {
     id: '',
-    category_name: '',
+    name: '',
     description: '',
     is_active: true,
 };
 
-export default function AddCategory(props:any) {
+export default function AddTag(props:any) {
     const dispatch = useAppDispatch();
 
     const CustomInput = CustomComponents.CustomInput;
@@ -22,14 +20,13 @@ export default function AddCategory(props:any) {
     const UseForm = CustomComponents.UseForm;
     const DialogActionButton = CustomComponents.DialogActionButton;
     const FormDialogContent = CustomComponents.FormDialogContent;
-    // const InputFile = CustomComponents.InputFile;
 
     // validation
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
 
-        if ('category_name' in fieldValues) {
-            temp.category_name = fieldValues.category_name ? "" : "Category Name is required!"
+        if ('name' in fieldValues) {
+            temp.name = fieldValues.name ? "" : "Tag Name is required!"
         }
 
         if ('description' in fieldValues) {
@@ -45,44 +42,27 @@ export default function AddCategory(props:any) {
         }
     }
 
-    // const inputImageRef = useRef(null);
-    // const [picture, setPicture] = useState({logo:''});
     const { values, setValues, errors, setErrors, handleInput, resetForm } = UseForm(initialFormValues, true, validate);
     const [buttonText, setButtonText] = useState('Submit');
 
-    // image change event
-    // const handleImageChange = (e: any) => {
-    //     e.persist();
-
-    //     setErrors({
-    //         ...errors,
-    //         [e.target.name]: ""
-    //     })
-    //     setPicture({
-    //         ...picture,
-    //         [e.target.name]: e.target.files[0]
-    //     });
-    // }
-
     // insert
     const saveRecord = (e:any) => {
-        e.preventDefault();        
+        e.preventDefault();
 
         let _id = values.id;
 
         if (validate()) {
             const formData = new FormData();
             formData.append('id', _id);
-            formData.append('category_name', values.category_name);
+            formData.append('name', values.name);
             formData.append('description', values.description);
             formData.append('is_active', values.is_active);
-            // formData.append('image_data', picture.logo);
-            
+
             dispatch(setTaskLoader(true));
-            if (_id) {                
-                dispatch(updateCategoryAction(formData));
+            if (_id) {
+                dispatch(updateTagAction(formData));
             }else{
-                dispatch(createCategoryAction(formData));
+                dispatch(createTagAction(formData));
             }
         }
     }
@@ -91,7 +71,7 @@ export default function AddCategory(props:any) {
         if (props.recordForEdit) {
             setValues({
                 id: props.recordForEdit._id,
-                category_name: props.recordForEdit.category_name,
+                name: props.recordForEdit.name,
                 description: props.recordForEdit.description,
                 is_active: props.recordForEdit.is_active,
             })
@@ -103,17 +83,17 @@ export default function AddCategory(props:any) {
 
     return (
         <>
-            <CustomForm onSubmit={saveRecord} id="CATEGORY_FORM">
+            <CustomForm onSubmit={saveRecord} id="TAG_FORM">
                 <FormDialogContent>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <CustomInput
                                 autoFocus
-                                name="category_name"
-                                label="Category Name"
-                                value={values.category_name}
+                                name="name"
+                                label="Tag Name"
+                                value={values.name}
                                 onChange={handleInput}
-                                error={errors.category_name}
+                                error={errors.name}
                                 fullWidth
                             />
                         </Grid>
@@ -129,14 +109,6 @@ export default function AddCategory(props:any) {
                                 fullWidth
                             />
                         </Grid>
-                        {/* <Grid item xs={12}>
-                            <InputFile
-                                type="file"
-                                name="logo"
-                                onChange={handleImageChange}
-                                inputImageRef={inputImageRef}
-                            />
-                        </Grid> */}
                     </Grid>
                 </FormDialogContent>
                 <DialogActionButton

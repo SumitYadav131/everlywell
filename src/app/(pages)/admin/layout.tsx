@@ -78,20 +78,18 @@ const Layout = ({children}:any)=>{
   return(
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={mode === 'dark' ? darkThemeChosen : lightThemeChosen}>
-        {/* <Box sx={{ display: 'flex' }}> */}
-          <CssBaseline />
-          <AdminNavBar ColorModeContext={ColorModeContext}/>
-          <Sidebar/>
-          <Box sx={{paddingLeft: '240px'}}>
-            <Main open={open}>
-              <DrawerHeader/>
-                {children}
-                <ConfirmDialog/>
-                <SnackbarNotification/>
-              <Footer/>
-            </Main>
-          </Box>
-        {/* </Box> */}
+        <CssBaseline />
+        <AdminNavBar ColorModeContext={ColorModeContext}/>
+        <Sidebar/>
+        <Box sx={{paddingLeft: '240px'}}>
+          <Main open={open}>
+            <DrawerHeader/>
+              {children}
+              <ConfirmDialog/>
+              <SnackbarNotification/>
+            <Footer/>
+          </Main>
+        </Box>
       </ThemeProvider>
     </ColorModeContext.Provider>
   )
