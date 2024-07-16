@@ -23,6 +23,7 @@ const axios = Axios.create({
     headers:{
         'X-Requested-With':'XMLHttpRequest',
         'Content-Type':"application/json",
+        // 'Content-Type': 'multipart/form-data',
         'Accept': "application/json",
     },
     withCredentials:true

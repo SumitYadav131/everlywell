@@ -4,8 +4,12 @@ import { setFormDialogOpen } from '../features/dialog/formDialogSlice';
 import { setTaskLoader } from '../features/loader/loaderSlice';
 import { setNotification } from '../features/notification/notificationSlice';
 
-export const createProductAction = createAsyncThunk('product/createProduct',async(data:any, thunkAPI)=>{
-    const result = axios.post('api/products', data);
+export const createProductAction = createAsyncThunk(
+    'product/createProduct',
+    async(data: FormData, thunkAPI)=>{
+    const result = axios.post('api/products', data
+        , {headers: {'content-type': 'multipart/form-data',}}
+    );
     result.then((response)=>{
         thunkAPI.dispatch(setFormDialogOpen({isOpen: false, dialogTitle: ""}));
         thunkAPI.dispatch(setTaskLoader(false));

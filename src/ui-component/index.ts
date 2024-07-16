@@ -18,6 +18,7 @@ import SnackbarNotification from "./notification/SnackbarNotification";
 import CustomLinearLoader from "./loader/LinearLoader";
 import DataGridActions from "./datagridactions/DataGridActions";
 import ConfirmDialog from "./dialog/ConfirmDialog";
+import InputFile from "./controls/input/InputFile";
 
 
 export const CustomComponents = {
@@ -41,4 +42,5 @@ export const CustomComponents = {
     CustomLinearLoader,
     DataGridActions,
     ConfirmDialog,
+    InputFile,
 }

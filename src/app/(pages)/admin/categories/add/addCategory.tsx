@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { CustomComponents } from '@/ui-component';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -16,11 +16,13 @@ const initialFormValues = {
 
 export default function AddCategory(props:any) {
     const dispatch = useAppDispatch();
+
     const CustomInput = CustomComponents.CustomInput;
     const CustomForm = CustomComponents.CustomForm;
     const UseForm = CustomComponents.UseForm;
     const DialogActionButton = CustomComponents.DialogActionButton;
     const FormDialogContent = CustomComponents.FormDialogContent;
+    // const InputFile = CustomComponents.InputFile;
 
     // validation
     const validate = (fieldValues = values) => {
@@ -42,8 +44,25 @@ export default function AddCategory(props:any) {
             return Object.values(temp).every(x => x == "")
         }
     }
+
+    // const inputImageRef = useRef(null);
+    // const [picture, setPicture] = useState({logo:''});
     const { values, setValues, errors, setErrors, handleInput, resetForm } = UseForm(initialFormValues, true, validate);
     const [buttonText, setButtonText] = useState('Submit');
+
+    // image change event
+    // const handleImageChange = (e: any) => {
+    //     e.persist();
+
+    //     setErrors({
+    //         ...errors,
+    //         [e.target.name]: ""
+    //     })
+    //     setPicture({
+    //         ...picture,
+    //         [e.target.name]: e.target.files[0]
+    //     });
+    // }
 
     // insert
     const saveRecord = (e:any) => {
@@ -57,6 +76,7 @@ export default function AddCategory(props:any) {
             formData.append('category_name', values.category_name);
             formData.append('description', values.description);
             formData.append('is_active', values.is_active);
+            // formData.append('image_data', picture.logo);
             
             dispatch(setTaskLoader(true));
             if (_id) {                
@@ -68,7 +88,7 @@ export default function AddCategory(props:any) {
     }
 
     useEffect(() => {
-        if (props.recordForEdit) {            
+        if (props.recordForEdit) {
             setValues({
                 id: props.recordForEdit._id,
                 category_name: props.recordForEdit.category_name,
@@ -83,7 +103,7 @@ export default function AddCategory(props:any) {
 
     return (
         <>
-            <CustomForm onSubmit={saveRecord} id="CATEGORY_FORM">
+            <CustomForm onSubmit={saveRecord} id="CATEGORY_FORM" encenctype="multipart/form-data">
                 <FormDialogContent>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -109,6 +129,14 @@ export default function AddCategory(props:any) {
                                 fullWidth
                             />
                         </Grid>
+                        {/* <Grid item xs={12}>
+                            <InputFile
+                                type="file"
+                                name="logo"
+                                onChange={handleImageChange}
+                                inputImageRef={inputImageRef}
+                            />
+                        </Grid> */}
                     </Grid>
                 </FormDialogContent>
                 <DialogActionButton

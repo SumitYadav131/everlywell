@@ -102,7 +102,7 @@ export default function AddProduct(props:any) {
             formData.append('description', values.description);
             formData.append('barcode', values.barcode);
             formData.append('brand', values.brand);
-            formData.append('categories', values.categories);
+            formData.append('categories', JSON.stringify(values.categories));
             formData.append('discount', values.discount);
             formData.append('price', values.price);
             formData.append('product_image', values.product_image);
@@ -143,7 +143,7 @@ export default function AddProduct(props:any) {
 
     return (
         <>
-            <CustomForm onSubmit={saveRecord} id="CATEGORY_FORM">
+            <CustomForm onSubmit={saveRecord} id="PRODUCT_FORM" encType="multipart/form-data">
                 <CustomComponents.FormDialogContent>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
