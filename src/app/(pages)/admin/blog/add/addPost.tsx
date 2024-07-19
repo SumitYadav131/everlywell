@@ -1,18 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
 import { CustomComponents } from '@/ui-component';
 import { Grid } from '@mui/material';
 import { useAppDispatch } from '@/lib/store/hooks';
 import { setTaskLoader } from '@/lib/store/features/loader/loaderSlice';
-import { createCategoryAction, updateCategoryAction } from '@/lib/store/thunks/categoryAction';
+import { createBlogPostAction, updateBlogPostAction } from '@/lib/store/thunks/blogPostAction';
 
 const initialFormValues = {
     id: '',
-    category_name: '',
+    title: '',
     description: '',
     is_active: true,
 };
 
-export default function AddCategory(props:any) {
+export default function AddPost(props:any) {
     const dispatch = useAppDispatch();
 
     const CustomInput = CustomComponents.CustomInput;
@@ -26,8 +26,8 @@ export default function AddCategory(props:any) {
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
 
-        if ('category_name' in fieldValues) {
-            temp.category_name = fieldValues.category_name ? "" : "Category Name is required!"
+        if ('title' in fieldValues) {
+            temp.title = fieldValues.title ? "" : "Title Name is required!"
         }
 
         if ('description' in fieldValues) {
@@ -71,16 +71,16 @@ export default function AddCategory(props:any) {
         if (validate()) {
             const formData = new FormData();
             formData.append('id', _id);
-            formData.append('category_name', values.category_name);
+            formData.append('title', values.title);
             formData.append('description', values.description);
             formData.append('is_active', values.is_active);
             // formData.append('image_data', picture.logo);
             
             dispatch(setTaskLoader(true));
             if (_id) {                
-                dispatch(updateCategoryAction(formData));
+                dispatch(updateBlogPostAction(formData));
             }else{
-                dispatch(createCategoryAction(formData));
+                dispatch(createBlogPostAction(formData));
             }
         }
     }
@@ -89,7 +89,7 @@ export default function AddCategory(props:any) {
         if (props.recordForEdit) {
             setValues({
                 id: props.recordForEdit._id,
-                category_name: props.recordForEdit.category_name,
+                title: props.recordForEdit.title,
                 description: props.recordForEdit.description,
                 is_active: props.recordForEdit.is_active,
             })
@@ -101,17 +101,17 @@ export default function AddCategory(props:any) {
 
     return (
         <>
-            <CustomForm onSubmit={saveRecord} id="CATEGORY_FORM">
+            <CustomForm onSubmit={saveRecord} id="BLOG_POST_FORM">
                 <FormDialogContent>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <CustomInput
                                 autoFocus
-                                name="category_name"
-                                label="Category Name"
-                                value={values.category_name}
+                                name="title"
+                                label="Post Title"
+                                value={values.title}
                                 onChange={handleInput}
-                                error={errors.category_name}
+                                error={errors.title}
                                 fullWidth
                             />
                         </Grid>

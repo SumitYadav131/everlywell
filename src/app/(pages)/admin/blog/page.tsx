@@ -1,17 +1,15 @@
-'use client'
-// import { Metadata } from 'next'
-import React from 'react'
+import { Metadata } from 'next'
+import PostsList from './list/postsList';
 
-// export const metadata: Metadata = {
-//   title: {
-//     absolute: "Blog Posts",
-//   },
-// }
+export const metadata: Metadata = {
+  title: "Blog Page | Everlywell add blog page",
+  description: "This is Blog Page for Everlywell application",
+};
 
 export default function posts() {
   return (
-    <div>
-      <h1>Post page</h1>
-    </div>
+    <>
+      <PostsList/>
+    </>
   )
 }

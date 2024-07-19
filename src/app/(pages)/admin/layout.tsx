@@ -42,7 +42,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   }),
 }));
 
-const Layout = ({children}:any)=>{
+const Layout = ({children}: Readonly<{children: React.ReactNode;}>)=>{
   const ConfirmDialog = CustomComponents.ConfirmDialog;
   const SnackbarNotification = CustomComponents.SnackbarNotification;
 

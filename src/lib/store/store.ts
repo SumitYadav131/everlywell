@@ -8,6 +8,7 @@ import notificationReducer from './features/notification/notificationSlice';
 import confirmDialogReducer from './features/dialog/confirmDialogSlice';
 import categoryReducer from './features/category/categorySlice';
 import tagReducer from './features/tagSlice';
+import blogPostReducer from './features/blogPostSlice';
 
 
 export const makeStore = () => {
@@ -22,6 +23,7 @@ export const makeStore = () => {
       notification: notificationReducer,
       category: categoryReducer,
       tag: tagReducer,
+      blogPost: blogPostReducer,
     },
 
     middleware: (getDefaultMiddleware) =>
