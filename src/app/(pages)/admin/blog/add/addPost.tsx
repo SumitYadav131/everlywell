@@ -51,7 +51,6 @@ export default function AddPost(props:any) {
     // image change event
     // const handleImageChange = (e: any) => {
     //     e.persist();
-
     //     setErrors({
     //         ...errors,
     //         [e.target.name]: ""
@@ -64,7 +63,7 @@ export default function AddPost(props:any) {
 
     // insert
     const saveRecord = (e:any) => {
-        e.preventDefault();        
+        e.preventDefault();
 
         let _id = values.id;
 
