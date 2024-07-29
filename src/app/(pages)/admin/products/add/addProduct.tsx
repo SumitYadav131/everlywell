@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { CustomComponents } from '@/ui-component';
 import { Grid } from '@mui/material';
-import MultiSelect from '@/ui-component/controls/select/MultiSelect';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { createProductAction, updateProductAction } from '@/lib/store/thunks/productAction';
 import { setTaskLoader } from '@/lib/store/features/loader/loaderSlice';
@@ -33,6 +32,7 @@ export default function AddProduct(props:any) {
     const CustomInput = CustomComponents.CustomInput;
     const CustomForm = CustomComponents.CustomForm;
     const UseForm = CustomComponents.UseForm;
+    const MultiSelect = CustomComponents.MultiSelect;
 
     // categories
     useEffect(() => {
@@ -187,7 +187,7 @@ export default function AddProduct(props:any) {
                                 {stateCategories.map((category: {_id:string, category_name:string}) => (
                                     <MenuItem
                                     key={category._id}
-                                    value={category.category_name}
+                                    value={category._id}
                                     >
                                         {category.category_name}
                                     </MenuItem>
@@ -245,13 +245,6 @@ export default function AddProduct(props:any) {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            {/* <CustomInput
-                                label="Tags"
-                                name="tags"
-                                value={values.tags}
-                                onChange={handleInput}
-                                fullWidth
-                            /> */}
                             <MultiSelect
                                 id="tags"
                                 name="tags"

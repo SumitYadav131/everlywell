@@ -9,6 +9,7 @@ export function UseForm(initial_form_values: any, validateOnChange = false, vali
     const handleInput = (e:any) => {
         // e.persist();
         const { name, value } = e.target;
+        
         setValues({ ...values, [name]: value });
 
         if (validateOnChange) {

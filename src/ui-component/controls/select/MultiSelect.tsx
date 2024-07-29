@@ -48,13 +48,13 @@ export default function MultiSelect(props: propsType) {
           value={value}
           onChange={onChange}
           input={<OutlinedInput id={id} label={label} />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value:any) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
+          // renderValue={(selected) => (
+          //   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+          //     {selected.map((value: any) => (
+          //       <Chip key={value} label={value} />
+          //     ))}
+          //   </Box>
+          // )}
         >
           { children }
         </Select>
