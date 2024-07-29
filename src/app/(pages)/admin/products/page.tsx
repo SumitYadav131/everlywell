@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { CustomComponents } from '@/ui-component';
 import { Box, Button, IconButton, Tooltip, Grid, Container } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
+// import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { AddCircleRounded } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { setFormDialogOpen } from '@/lib/store/features/dialog/formDialogSlice';
@@ -62,10 +62,23 @@ export default function Products() {
                 width: 200
             },
             {
-                field: 'categories',
+                field: 'related_categories',
                 headerName: 'Categories',
                 sortable: false,
-                width: 400
+                flex: 1,
+                width: 400,
+                valueGetter: (related_categories: Array<{category_name: string}>) => {             
+                    let result :Array<string> = [];
+                    if (related_categories) {
+                        related_categories.map((category: {category_name: string})=>{
+                            result.push(category.category_name)
+                        })
+                    }
+                    else {
+                        result = ["Unknown"];
+                    }
+                    return (result.join(", "));
+                }
             },
             {
                 field: 'actions',
@@ -74,7 +87,7 @@ export default function Products() {
                 sortable: false,
                 // flex: 1,
                 width:150,
-                renderCell: (params:any) => {
+                renderCell: (params:any) => {                    
                     return (
                         <>
                             <DataGridActions
@@ -89,7 +102,7 @@ export default function Products() {
             },
         ],
         []
-    )    
+    );
 
     return (
         <>
