@@ -65,7 +65,6 @@ export default function Products() {
                 field: 'related_categories',
                 headerName: 'Categories',
                 sortable: false,
-                flex: 1,
                 width: 400,
                 valueGetter: (related_categories: Array<{category_name: string}>) => {             
                     let result :Array<string> = [];

@@ -51,9 +51,9 @@ export const productSlice = createSlice({
     // ---------- update
     .addCase(updateProductAction.pending, (state, action)=>{})
     .addCase(updateProductAction.fulfilled,(state, {payload})=>{
-      let getUpdatedProduct = (payload.data.data.product);
+      let getUpdatedProduct = (payload.data.data.product[0]);
       const products = state.products;
-      const getIndex = products.findIndex((product:any) => product._id === getUpdatedProduct._id);      
+      const getIndex = products.findIndex((product:any) => product._id === getUpdatedProduct._id);
       products[getIndex] = getUpdatedProduct;
     })
     .addCase(updateProductAction.rejected,(state)=>{})

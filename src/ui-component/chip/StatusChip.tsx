@@ -7,7 +7,7 @@ export default function StatusChip(props: any) {
     const label = is_active === true ? 'Active' : 'Inactive';
     const color = is_active === true ? 'success' : 'error';
     const bgcolor = is_active === true ? '#e8f5e9' : '#ffebee';
-    
+
     return (
         <>
             <Chip
