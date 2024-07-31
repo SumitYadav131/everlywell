@@ -258,7 +258,7 @@ export default function AddProduct(props:any) {
                                 {stateTags.map((tag: {_id:string, name:string}) => (
                                     <MenuItem
                                     key={tag._id}
-                                    value={tag.name}
+                                    value={tag._id}
                                     >
                                         {tag.name}
                                     </MenuItem>

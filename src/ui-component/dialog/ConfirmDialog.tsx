@@ -25,7 +25,7 @@ export default function ConfirmDialog() {
             </DialogContent>
             <DialogActions>
                 <CustomButton
-                    sx={{ background: '#f44336', borderRadius: '10px' }}
+                    sx={{ borderRadius: '10px' }}
                     text="Yes"
                     color="error"
                     size="medium"
@@ -38,7 +38,7 @@ export default function ConfirmDialog() {
                     )}
                 />
                 <CustomButton
-                    sx={{ color: '#fff', background: '#000', borderRadius: '10px' }}
+                    sx={{ borderRadius: '10px' }}
                     text="No"
                     size="medium"
                     variant="outlined"

@@ -117,7 +117,7 @@ export default function Products() {
                         <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
                             <Button
                                 variant="contained"
-                                endIcon={< AddCircleRounded />}
+                                endIcon={< AddCircleRounded/>}
                                 onClick={() => {
                                     dispatch(setFormDialogOpen({ isOpen: true, dialogTitle: "Add Product"}));
                                     setRecordForEdit(null);

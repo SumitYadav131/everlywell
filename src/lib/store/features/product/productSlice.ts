@@ -24,7 +24,7 @@ export const productSlice = createSlice({
     builder
     .addCase(createProductAction.pending, (state, action)=>{})
     .addCase(createProductAction.fulfilled,(state, {payload})=>{
-      let getInsertedProduct = (payload.data.data.product);
+      let getInsertedProduct = (payload.data.data.product[0]);
       state.products.push(getInsertedProduct);
     })
     .addCase(createProductAction.rejected,(state)=>{})
