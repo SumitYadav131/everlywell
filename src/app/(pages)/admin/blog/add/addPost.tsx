@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { CustomComponents } from '@/ui-component';
 import { Grid } from '@mui/material';
 import { useAppDispatch } from '@/lib/store/hooks';
@@ -20,6 +20,7 @@ export default function AddPost(props:any) {
     const UseForm = CustomComponents.UseForm;
     const DialogActionButton = CustomComponents.DialogActionButton;
     const FormDialogContent = CustomComponents.FormDialogContent;
+    const CustomJoditEditor = CustomComponents.CustomJoditEditor;
     // const InputFile = CustomComponents.InputFile;
 
     // validation
@@ -47,6 +48,9 @@ export default function AddPost(props:any) {
     // const [picture, setPicture] = useState({logo:''});
     const { values, setValues, errors, setErrors, handleInput, resetForm } = UseForm(initialFormValues, true, validate);
     const [buttonText, setButtonText] = useState('Submit');
+
+    // jodit
+    const editor = useRef(null);
 
     // image change event
     // const handleImageChange = (e: any) => {
@@ -115,7 +119,14 @@ export default function AddPost(props:any) {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <CustomInput
+                            <CustomJoditEditor
+                                innerRef={editor}
+                                value={values.description}
+                                values={values}
+                                setValues={setValues}
+                            />
+
+                            {/* <CustomInput
                                 name="description"
                                 label="Description"
                                 value={values.description}
@@ -124,7 +135,7 @@ export default function AddPost(props:any) {
                                 multiline
                                 rows={2}
                                 fullWidth
-                            />
+                            /> */}
                         </Grid>
                         {/* <Grid item xs={12}>
                             <InputFile

@@ -66,7 +66,7 @@ export default function Products() {
                 headerName: 'Categories',
                 sortable: false,
                 width: 400,
-                valueGetter: (related_categories: Array<{category_name: string}>) => {             
+                valueGetter: (related_categories: Array<{category_name: string}>) => {
                     let result :Array<string> = [];
                     if (related_categories) {
                         related_categories.map((category: {category_name: string})=>{

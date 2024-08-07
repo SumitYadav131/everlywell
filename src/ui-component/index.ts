@@ -19,6 +19,7 @@ import CustomLinearLoader from "./loader/LinearLoader";
 import DataGridActions from "./datagridactions/DataGridActions";
 import ConfirmDialog from "./dialog/ConfirmDialog";
 import InputFile from "./controls/input/InputFile";
+import { CustomJoditEditor } from "./controls/joditEditor/JoditEditor";
 
 
 export const CustomComponents = {
@@ -43,4 +44,5 @@ export const CustomComponents = {
     DataGridActions,
     ConfirmDialog,
     InputFile,
+    CustomJoditEditor,
 }
