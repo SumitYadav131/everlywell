@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import { CustomComponents } from '@/ui-component';
 import { Grid } from '@mui/material';
 import { useAppDispatch } from '@/lib/store/hooks';
@@ -50,7 +50,7 @@ export default function AddPost(props:any) {
     const [buttonText, setButtonText] = useState('Submit');
 
     // jodit
-    const editor = useRef(null);
+    const editor = useRef();
 
     // image change event
     // const handleImageChange = (e: any) => {

@@ -21,7 +21,7 @@ export const CustomJoditEditor = (props: any) =>{
     return(
         <>
             <JoditEditor
-            // ref={innerRef}
+            ref={innerRef}
             value={value}
             config={config}
             onBlur={newContent => setValues({...values, 'description':newContent})}/>

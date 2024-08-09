@@ -2,9 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { CustomComponents } from '@/ui-component';
-import { Box, Button, Card, IconButton, Tooltip } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { AddCircleRounded } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { setFormDialogOpen } from '@/lib/store/features/dialog/formDialogSlice';
@@ -85,7 +84,10 @@ export default function PostsList() {
     return (
         <>
             <ListPageCard>
-                <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                <Box sx={{display: 'flex', justifyContent: 'space-between'}} paddingBottom={2}>
+                    <Typography component="div" variant='h6'>
+                        <Box sx={{fontWeight: 'bold'}}>Posts</Box>
+                    </Typography>
                     <Button
                         variant="contained"
                         endIcon={< AddCircleRounded />}
@@ -127,7 +129,7 @@ export default function PostsList() {
             </ListPageCard>
 
             <CustomFormDialog
-                size='sm'
+                size='md'
                 isFullWidth={true}>
                 <AddPost
                 recordForEdit={recordForEdit}/>
